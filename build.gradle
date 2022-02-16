@@ -10,6 +10,9 @@ buildscript {
         pensjonInformasjonVersion = '9.4.10'
         epeuxVersion = '1.1.57'
         epMetricsVersion = "0.4.12"
+        epSecurityStsVersion = '0.0.21'
+        epLoggingVersion = '1.0.15'
+        epPersonoppslagVersion = '8.2.4'
     }
 
     repositories {
@@ -124,16 +127,22 @@ dependencies {
     // Only used for starting up locally
     implementation("no.nav.security:token-validation-test-support:${tokenSupportVersion}")
 
+    implementation("no.nav.eessi.pensjon:ep-security-sts:${epSecurityStsVersion}")
+    implementation("no.nav.eessi.pensjon:ep-logging:${epLoggingVersion}")
+    implementation("no.nav.eessi.pensjon:ep-eux:${epeuxVersion}")
+    implementation("no.nav.eessi.pensjon:ep-metrics:$epMetricsVersion")
+    implementation("no.nav.eessi.pensjon:ep-personoppslag:${epPersonoppslagVersion}")
+
     testImplementation("org.pac4j:spring-webmvc-pac4j:5.1.0")
 
 
     // Micrometer
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
-    implementation("no.nav.eessi.pensjon:ep-metrics:$epMetricsVersion")
 
     implementation ("org.springframework.kafka:spring-kafka")
     testImplementation ("org.springframework.kafka:spring-kafka-test")
 
+    implementation("com.google.guava:guava:31.0.1-jre")
 }
 
 
