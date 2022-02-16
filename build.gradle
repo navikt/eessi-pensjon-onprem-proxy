@@ -65,7 +65,7 @@ compileTestKotlin {
 }
 
 jar {
-    archivesBaseName = 'eessi-pensjon-azureadpoc'
+    archivesBaseName = 'eessi-pensjon-onprem-proxy'
 }
 
 dependencies {

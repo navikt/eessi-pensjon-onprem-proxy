@@ -1,3 +1,1 @@
-Poc for å komme igang med azure ad i eessipensjon
-
-Slettes når man er ferdig med poc
+Proxy som tar imot AzureAd kall fra GCP og kaller onprem tjenester som ikke eksponerer tjenester til GCP

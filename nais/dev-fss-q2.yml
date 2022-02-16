@@ -1,20 +1,12 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: eessi-pensjon-azure-ad-poc-q2
+  name: eessi-pensjon-onprem-proxy-q2
   namespace: eessipensjon
   labels:
     team: eessipensjon
 spec:
-  accessPolicy:
-    outbound:
-      external:
-        - host: eessi-pensjon-azure-ad-poc-q2.dev-fss-pub.nais.io
   azure:
-    sidecar:
-      enabled: true
-      autoLogin: false
-      errorPath: ""
     application:
       enabled: true
       claims:
@@ -34,7 +26,7 @@ spec:
       value: q2
   image: {{ image }}
   ingresses:
-    - https://eessi-pensjon-azure-ad-poc-q2.dev.intern.nav.no
+    - https://eessi-pensjon-onprem-proxy-q2.dev.intern.nav.no
   liveness:
     path: /internal/isalive
     port: 8080
