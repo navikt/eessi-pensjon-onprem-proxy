@@ -1,0 +1,44 @@
+AZURE_APP_WELL_KNOWN_URL: https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/v2.0/.well-known/openid-configuration
+no.nav.security.jwt:
+  issuer:
+    aad:
+      discoveryurl: ${AZURE_APP_WELL_KNOWN_URL}
+      accepted_audience: ${AZURE_APP_CLIENT_ID}
+    isso:
+      proxyurl:
+      cookiename: 'eessipensjon-idtoken'
+      discoveryurl: '${OPENIDCONNECT_URL}/oauth2/.well-known/openid-configuration'
+      accepted_audience: 'eessi-pensjon-frontend-api-fss-${ENV}'
+    oidc:
+      discoveryurl: '${OPENIDCONNECT_URL}/oauth2/.well-known/openid-configuration'
+      accepted_audience: 'eessi-fagmodul-${ENV},eessi-pensjon-frontend-api-fss-${ENV},ida-q'
+    servicebruker:
+      discoveryurl: '${security-token-service-openid-configuration_url}'
+      accepted_audience: 'srvpensjon,srveessipensjon,srveessi-pensjon-j,srveessi-pensjon-b'
+
+
+# Empty on purpose so that oidc-spring-support doesn't use http.proxy
+http.proxy.parametername:
+
+securityTokenService:
+  discoveryUrl: ${SECURITY_TOKEN_SERVICE_OPENID_CONFIGURATION_URL}
+
+management:
+  endpoints:
+    metrics:
+      enabled: true
+    web:
+      exposure:
+        include: info, health, metrics, prometheus
+    export:
+      prometheus:
+        enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+

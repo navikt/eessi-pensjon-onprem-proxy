@@ -1,0 +1,65 @@
+kind: Application
+apiVersion: nais.io/v1alpha1
+metadata:
+  name: eessi-pensjon-azure-ad-poc-q2
+  namespace: eessipensjon
+  labels:
+    team: eessipensjon
+spec:
+  accessPolicy:
+    outbound:
+      external:
+        - host: eessi-pensjon-azure-ad-poc-q2.dev-fss-pub.nais.io
+  azure:
+    sidecar:
+      enabled: true
+      autoLogin: false
+      errorPath: ""
+    application:
+      enabled: true
+      claims:
+        extra:
+          - NAVident
+  webproxy: true
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: test
+    - name: OPENIDCONNECT_URL
+      value: https://isso-q.adeo.no:443/isso
+    - name: SECURITY_TOKEN_SERVICE_OPENID_CONFIGURATION_URL
+      value: https://security-token-service.nais.preprod.local/rest/v1/sts/.well-known/openid-configuration
+    - name: SECURITYTOKENSERVICE_URL
+      value: https://sts-q2.preprod.local/SecurityTokenServiceProvider/
+    - name: ENV
+      value: q2
+  image: {{ image }}
+  ingresses:
+    - https://eessi-pensjon-azure-ad-poc-q2.dev.intern.nav.no
+  liveness:
+    path: /internal/isalive
+    port: 8080
+    initialDelay: 40
+    failureThreshold: 10
+  port: 8080
+  prometheus:
+    enabled: true
+    path: /actuator/prometheus
+  readiness:
+    path: /internal/isready
+    port: 8080
+    initialDelay: 40
+    failureThreshold: 10
+  replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 80
+  resources:
+    limits:
+      cpu: "4"
+      memory: 8096Mi
+    requests:
+      cpu: 400m
+      memory: 4024Mi
+  vault:
+    enabled: true
+
