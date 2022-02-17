@@ -30,6 +30,8 @@ spec:
       value: https://sts-q2.preprod.local/SecurityTokenServiceProvider/
     - name: NORG2_URL
       value: https://app-q4.adeo.no/norg2/
+    - name: KODEVERK_REST_API_URL
+      value: https://kodeverk.nais.adeo.no
     - name: ENV
       value: q2
   image: {{ image }}
