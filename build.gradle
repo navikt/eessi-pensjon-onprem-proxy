@@ -131,7 +131,6 @@ dependencies {
     implementation("no.nav.eessi.pensjon:ep-logging:${epLoggingVersion}")
     implementation("no.nav.eessi.pensjon:ep-eux:${epeuxVersion}")
     implementation("no.nav.eessi.pensjon:ep-metrics:$epMetricsVersion")
-    implementation("no.nav.eessi.pensjon:ep-personoppslag:${epPersonoppslagVersion}")
 
     testImplementation("org.pac4j:spring-webmvc-pac4j:5.1.0")
 
