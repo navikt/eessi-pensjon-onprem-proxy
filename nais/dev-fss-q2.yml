@@ -12,6 +12,12 @@ spec:
       claims:
         extra:
           - NAVident
+  accessPolicy:
+    inbound:
+      rules:
+        - application: eessi-pensjon-journalforing-q2
+          namespace: eessipensjon
+          cluster: dev-gcp
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
