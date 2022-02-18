@@ -18,57 +18,17 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.HttpServerErrorException
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
 import javax.annotation.PostConstruct
 
 @Component
-@CacheConfig(cacheNames = ["kodeVerk"])
 class KodeverkClient(private val kodeRestTemplate: RestTemplate,
-                     @Value("\${NAIS_APP_NAME}") private val appName: String,
-                     @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
+                     @Value("\${NAIS_APP_NAME}") private val appName: String) {
 
     private val logger = LoggerFactory.getLogger(KodeverkClient::class.java)
-
-    private lateinit var KodeverkHentLandKode: MetricsHelper.Metric
-
-    @PostConstruct
-    fun initMetrics() {
-        KodeverkHentLandKode = metricsHelper.init("KodeverkHentLandKode")
-    }
-
-    fun hentAlleLandkoder() = hentLandKoder().toJson()
-
-    fun hentLandkoderAlpha2() = hentLandKoder().map { it.landkode2 }
-
-    @Cacheable
-    fun hentLandKoder(): List<Landkode> {
-        return KodeverkHentLandKode.measure {
-            val tmpLandkoder = hentHierarki("LandkoderSammensattISO2")
-
-            val rootNode = jacksonObjectMapper().readTree(tmpLandkoder)
-            val noder = rootNode.at("/noder").toList()
-
-            noder.map { node ->
-                Landkode(node.at("/kode").textValue(),
-                        node.at("/undernoder").findPath("kode").textValue())
-            }.sortedBy { (sorting, _) -> sorting }.toList()
-        }
-    }
-
-    @Cacheable("landkoder")
-    fun finnLandkode(landkode: String): String? {
-
-        if(landkode.isEmpty() || landkode.length !in 2..3){
-            throw IllegalArgumentException("Ugyldig landkode: $landkode")
-        }
-        return when(landkode.length){
-            2 -> hentLandKoder().firstOrNull { it.landkode2 ==  landkode }?.landkode3
-            3 -> hentLandKoder().firstOrNull { it.landkode3 ==  landkode }?.landkode2
-            else -> throw IllegalArgumentException("Ugyldig landkode: $landkode")
-        }
-    }
 
     private fun doRequest(builder: UriComponents) : String {
         try {
@@ -76,31 +36,33 @@ class KodeverkClient(private val kodeRestTemplate: RestTemplate,
             headers["Nav-Consumer-Id"] = appName
             headers["Nav-Call-Id"] = UUID.randomUUID().toString()
             val requestEntity = HttpEntity<String>(headers)
-            logger.debug("Header: $requestEntity")
+
+            logger.debug("Header: $requestEntity, path: $builder")
+
             val response = kodeRestTemplate.exchange(
                     builder.toUriString(),
                     HttpMethod.GET,
                     requestEntity,
                     String::class.java)
 
-            return response.body ?: throw KodeverkException("Feil ved konvetering av jsondata fra kodeverk")
+            return response.body ?: throw ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Feil ved konvetering av jsondata fra kodeverk")
 
         } catch (ce: HttpClientErrorException) {
             logger.error(ce.message, ce)
-            throw KodeverkException(ce.message!!)
+            throw ResponseStatusException(ce.statusCode, ce.message!!)
         } catch (se: HttpServerErrorException) {
             logger.error(se.message, se)
-            throw KodeverkException(se.message!!)
+            throw ResponseStatusException(se.statusCode, se.message!!)
         } catch (ex: Exception) {
             logger.error(ex.message, ex)
-            throw KodeverkException(ex.message!!)
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message!!)
         }
     }
 
     /**
      *  https://kodeverk.nais.adeo.no/api/v1/hierarki/LandkoderSammensattISO2/noder
      */
-    private fun hentHierarki(hierarki: String) : String {
+    fun hentHierarki(hierarki: String) : String {
         val path = "/api/v1/hierarki/{hierarki}/noder"
 
         val uriParams = mapOf("hierarki" to hierarki)
@@ -109,11 +71,3 @@ class KodeverkClient(private val kodeRestTemplate: RestTemplate,
         return doRequest(builder)
     }
 }
-
-data class Landkode (
-        val landkode2: String, // SE
-        val landkode3: String // SWE
-)
-
-@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-class KodeverkException(message: String) : RuntimeException(message)
