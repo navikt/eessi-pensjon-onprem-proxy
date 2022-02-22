@@ -32,6 +32,8 @@ spec:
       value: https://app-q4.adeo.no/norg2/
     - name: KODEVERK_REST_API_URL
       value: https://kodeverk.nais.adeo.no
+    - name: PENSJONSINFORMASJON_URL
+      value: https://pensjon-pen-q2.nais.preprod.local/pen/api/pensjonsinformasjon/v1
     - name: ENV
       value: q2
   image: {{ image }}

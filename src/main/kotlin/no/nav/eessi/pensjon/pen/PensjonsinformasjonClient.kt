@@ -1,0 +1,63 @@
+package no.nav.eessi.pensjon.pen
+
+
+import org.slf4j.LoggerFactory
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
+import org.springframework.web.client.HttpServerErrorException
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.server.ResponseStatusException
+import org.springframework.web.util.UriComponentsBuilder
+
+@Service
+class PensjonsinformasjonClient(private val pensjonInformasjonRestTemplate: RestTemplate) {
+
+    private val logger = LoggerFactory.getLogger(PensjonsinformasjonClient::class.java)
+
+    fun hentAltPaaAktoerId(aktoerId: String, requestBody: String): String {
+        return doRequest("/aktor/", aktoerId, requestBody)
+    }
+
+    fun hentAltPaaVedtak(vedtaksId: String, requestBody: String): String {
+        return doRequest("/vedtak", vedtaksId, requestBody)
+    }
+
+    private fun doRequest(path: String, id: String, requestBody: String): String {
+
+        val headers = HttpHeaders()
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+        val requestEntity = HttpEntity(requestBody, headers)
+
+        val uriBuilder = UriComponentsBuilder.fromPath(path).pathSegment(id)
+        logger.debug("Pensjoninformasjon Uri:  ${uriBuilder.toUriString()}")
+
+            return try {
+                val responseEntity = pensjonInformasjonRestTemplate.exchange(
+                        uriBuilder.toUriString(),
+                        HttpMethod.POST,
+                        requestEntity,
+                        String::class.java)
+                responseEntity.body!!
+
+            } catch (hsee: HttpServerErrorException) {
+                val errorBody = hsee.responseBodyAsString
+                logger.error("PensjoninformasjonService feiler med HttpServerError body: $errorBody", hsee)
+                throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "PensjoninformasjonService feiler med innhenting av pensjoninformasjon fra PESYS, prøv igjen om litt")
+            } catch (hcee: HttpClientErrorException) {
+                val errorBody = hcee.responseBodyAsString
+                logger.error("PensjoninformasjonService feiler med HttpClientError body: $errorBody", hcee)
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, "PensjoninformasjonService feiler med innhenting av pensjoninformasjon fra PESYS, prøv igjen om litt")
+            } catch (ex: Exception) {
+                logger.error("PensjoninformasjonService feiler med kontakt til PESYS pensjoninformajson, ${ex.message}", ex)
+                throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "PensjoninformasjonService feiler med ukjent feil mot PESYS. melding: ${ex.message}")
+            }
+
+    }
+
+}
+

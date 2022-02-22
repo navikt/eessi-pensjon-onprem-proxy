@@ -20,80 +20,35 @@ import org.springframework.web.client.RestTemplate
 import java.util.*
 
 @Configuration
-class RestTemplateConfig(private val securityTokenExchangeService: STSService, private val meterRegistry: MeterRegistry) {
+class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
 
     @Value("\${NORG2_URL}")
     lateinit var norg2Url: String
 
-    @Value("\${srvusername}")
-    lateinit var username: String
-
-    @Value("\${srvpassword}")
-    lateinit var password: String
+    @Value("\${PENSJONSINFORMASJON_URL}")
+    lateinit var peninfourl: String
 
     @Bean
-    fun norg2OidcRestTemplate(templateBuilder: RestTemplateBuilder): RestTemplate {
-        return templateBuilder
-                .rootUri(norg2Url)
-                .errorHandler(DefaultResponseErrorHandler())
-                .additionalInterceptors(
-                        RequestIdHeaderInterceptor(),
-                        RequestResponseLoggerInterceptor(),
-                        RequestCountInterceptor(meterRegistry),
-                        UsernameToOidcInterceptor(securityTokenExchangeService))
-                .build().apply {
-                    requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-                }
+    fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
+
+    @Bean
+    fun pensjonInformasjonRestTemplate() = buildRestTemplate(peninfourl)
+
+    private fun buildRestTemplate(url: String): RestTemplate {
+        return RestTemplateBuilder()
+            .rootUri(url)
+            .errorHandler(DefaultResponseErrorHandler())
+            .additionalInterceptors(
+                RequestIdHeaderInterceptor(),
+                RequestResponseLoggerInterceptor(),
+                UsernameToOidcInterceptor(securityTokenExchangeService))
+            .build().apply {
+                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+            }
+
     }
 
-    class RequestInterceptor : ClientHttpRequestInterceptor {
-        override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-            request.headers["X-Correlation-ID"] = UUID.randomUUID().toString()
-            request.headers["Content-Type"] = MediaType.APPLICATION_JSON.toString()
-            return execution.execute(request, body)
-        }
-    }
-}
 
 
-
-class FullRequestResponseLoggerInterceptor : ClientHttpRequestInterceptor {
-    private val log: Logger by lazy { LoggerFactory.getLogger(RequestResponseLoggerInterceptor::class.java) }
-
-    override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-
-        logRequest(request, body)
-        val response: ClientHttpResponse = execution.execute(request, body)
-        logResponse(response)
-        return response
-    }
-
-    private fun logRequest(request: HttpRequest, body: ByteArray) {
-        if (log.isDebugEnabled) {
-            val requestLog = StringBuffer()
-
-            requestLog.append("\n===========================request begin================================================")
-            requestLog.append("\nURI            :  ${request.uri}")
-            requestLog.append("\nMethod         :  ${request.method}")
-            requestLog.append("\nHeaders        :  ${request.headers}")
-            requestLog.append("\nComplete body  :  ${String(body)}")
-            requestLog.append("\n==========================request end================================================")
-            log.debug(requestLog.toString())
-        }
-    }
-
-    private fun logResponse(response: ClientHttpResponse) {
-        if (log.isDebugEnabled) {
-            val responseLog = StringBuilder()
-
-            responseLog.append("\n===========================response begin================================================")
-            responseLog.append("\nStatus code    : ${response.statusCode}")
-            responseLog.append("\nStatus text    : ${response.statusText}")
-            responseLog.append("\nHeaders        : ${response.headers}")
-            responseLog.append("\nComplete body  :  ${String(response.body.readBytes())}")
-            responseLog.append("\n==========================response end================================================")
-            log.debug(responseLog.toString())
-        }
-    }
 }
 
