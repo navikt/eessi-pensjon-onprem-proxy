@@ -1,11 +1,11 @@
 package no.nav.eessi.pensjon.api
 
 import no.nav.eessi.pensjon.pen.*
-import no.nav.security.token.support.core.api.Unprotected
+import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Unprotected
+@Protected
 class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClient,
                  private val behandleHendelseKlient: BehandleHendelseKlient,
                  private val bestemSakKlient: BestemSakKlient) {

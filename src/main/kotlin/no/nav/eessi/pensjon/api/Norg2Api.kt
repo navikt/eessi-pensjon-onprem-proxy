@@ -4,11 +4,11 @@ import no.nav.eessi.pensjon.klienter.norg2.Norg2Service
 import no.nav.eessi.pensjon.klienter.norg2.NorgKlientRequest
 import no.nav.eessi.pensjon.kodeverk.KodeverkClient
 import no.nav.eessi.pensjon.models.Enhet
-import no.nav.security.token.support.core.api.Unprotected
+import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Unprotected
+@Protected
 class ProxyController(private val norg2Service: Norg2Service,
                       private val kodeverkClient: KodeverkClient) {
 
