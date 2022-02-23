@@ -36,6 +36,8 @@ spec:
       value: https://pensjon-pen.nais.adeo.no/pen/api/pensjonsinformasjon/v1
     - name: PENSJON_BEHANDLEHENDELSE_URL
       value: https://pensjon-pen.nais.adeo.no/pen/api/behandlehendelse/utland/v1/
+    - name: BESTEMSAK_URL
+      value: https://pensjon-pen.nais.adeo.no/pen/api/bestemsak/v1
     - name: ENV
       value: p
   image: {{ image }}
