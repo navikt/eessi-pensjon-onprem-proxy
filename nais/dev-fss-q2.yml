@@ -34,6 +34,8 @@ spec:
       value: https://kodeverk.nais.adeo.no
     - name: PENSJONSINFORMASJON_URL
       value: https://pensjon-pen-q2.nais.preprod.local/pen/api/pensjonsinformasjon/v1
+    - name: PENSJON_BEHANDLEHENDELSE_URL
+      value: https://pensjon-pen-q2.nais.preprod.local/pen/api/behandlehendelse/utland/v1/
     - name: ENV
       value: q2
   image: {{ image }}

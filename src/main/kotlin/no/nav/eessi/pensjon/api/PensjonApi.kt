@@ -1,5 +1,6 @@
 package no.nav.eessi.pensjon.api
 
+import no.nav.eessi.pensjon.pen.BehandleHendelseKlient
 import no.nav.eessi.pensjon.pen.PensjonsinformasjonClient
 import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.web.bind.annotation.PathVariable
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Unprotected
-class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClient) {
+class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClient,
+                 private val behandleHendelseKlient: BehandleHendelseKlient) {
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
@@ -22,4 +24,8 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         return pensjonsinformasjonClient.hentAltPaaVedtak(vedtakid, req)
     }
 
+    @PostMapping("/pen/api/behandlehendelse/utland/v1/")
+    fun behandleHendelse(@RequestBody req: String) {
+       behandleHendelseKlient.opprettBehandleHendelse(req)
+    }
 }

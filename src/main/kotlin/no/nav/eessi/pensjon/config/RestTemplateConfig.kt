@@ -28,11 +28,17 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
     @Value("\${PENSJONSINFORMASJON_URL}")
     lateinit var peninfourl: String
 
+    @Value("\${PENSJON_BEHANDLEHENDELSE_URL}")
+    lateinit var penBeandleHendelseurl: String
+
     @Bean
     fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
 
     @Bean
     fun pensjonInformasjonRestTemplate() = buildRestTemplate(peninfourl)
+
+    @Bean
+    fun behandleHendelseRestTemplate() = buildRestTemplate(penBeandleHendelseurl)
 
     private fun buildRestTemplate(url: String): RestTemplate {
         return RestTemplateBuilder()
