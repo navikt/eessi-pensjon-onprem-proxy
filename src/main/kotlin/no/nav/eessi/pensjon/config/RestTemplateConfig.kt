@@ -31,6 +31,9 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
     @Value("\${PENSJON_BEHANDLEHENDELSE_URL}")
     lateinit var penBeandleHendelseurl: String
 
+    @Value("\${BESTEMSAK_URL}")
+    lateinit var bestemSakUrl: String
+
     @Bean
     fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
 
@@ -54,7 +57,18 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
 
     }
 
-
-
+    @Bean
+    fun bestemSakOidcRestTemplate(templateBuilder: RestTemplateBuilder): RestTemplate {
+        return templateBuilder
+            .rootUri(bestemSakUrl)
+            .errorHandler(DefaultResponseErrorHandler())
+            .additionalInterceptors(
+                RequestIdHeaderInterceptor(),
+                RequestResponseLoggerInterceptor(),
+                UsernameToOidcInterceptor(securityTokenExchangeService))
+            .build().apply {
+                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+            }
+    }
 }
 

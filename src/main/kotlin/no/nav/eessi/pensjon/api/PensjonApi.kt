@@ -1,17 +1,14 @@
 package no.nav.eessi.pensjon.api
 
-import no.nav.eessi.pensjon.pen.BehandleHendelseKlient
-import no.nav.eessi.pensjon.pen.PensjonsinformasjonClient
+import no.nav.eessi.pensjon.pen.*
 import no.nav.security.token.support.core.api.Unprotected
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @Unprotected
 class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClient,
-                 private val behandleHendelseKlient: BehandleHendelseKlient) {
+                 private val behandleHendelseKlient: BehandleHendelseKlient,
+                 private val bestemSakKlient: BestemSakKlient) {
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
@@ -27,5 +24,10 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     @PostMapping("/pen/api/behandlehendelse/utland/v1/")
     fun behandleHendelse(@RequestBody req: String) {
        behandleHendelseKlient.opprettBehandleHendelse(req)
+    }
+
+    @GetMapping("/pen/api/bestemsak/v1")
+    fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
+        return bestemSakKlient.kallBestemSak(req)
     }
 }
