@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 class ProxyController(private val norg2Service: Norg2Service,
                       private val kodeverkClient: KodeverkClient) {
 
-    @PostMapping("/norg2/api/v1/arbeidsfordeling")
+    @PostMapping("/api/v1/arbeidsfordeling")
     fun norgArbeidsfordeling(@RequestBody req : NorgKlientRequest): Enhet? {
         return norg2Service.hentArbeidsfordelingEnhet(req)
     }
