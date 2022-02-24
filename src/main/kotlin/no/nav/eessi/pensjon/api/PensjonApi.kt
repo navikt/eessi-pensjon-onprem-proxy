@@ -26,7 +26,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
        behandleHendelseKlient.opprettBehandleHendelse(req)
     }
 
-    @GetMapping("/pen/api/bestemsak/v1")
+    @PostMapping("/pen/api/bestemsak/v1")
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
         return bestemSakKlient.kallBestemSak(req)
     }
