@@ -18,6 +18,12 @@ spec:
         - application: eessi-pensjon-journalforing-q2
           namespace: eessipensjon
           cluster: dev-gcp
+        - application: eessi-pensjon-krav-initialisering-q2
+          namespace: eessipensjon
+          cluster: dev-gcp
+        - application: eessi-pensjon-prefill-q2
+          namespace: eessipensjon
+          cluster: dev-gcp
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
