@@ -2,6 +2,7 @@ package no.nav.eessi.pensjon.api
 
 import no.nav.eessi.pensjon.pen.*
 import no.nav.security.token.support.core.api.Protected
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -10,9 +11,15 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
                  private val behandleHendelseKlient: BehandleHendelseKlient,
                  private val bestemSakKlient: BestemSakKlient) {
 
+    private val logger = LoggerFactory.getLogger(PensjonApi::class.java)
+
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
         //https://pensjon-pen-q2.nais.pr≈aktor/2790267313355
+
+//        /pen/api/pensjonsinformasjon/v1/aktor/2953297351855
+
+      logger.debug("henter pensjon sak for aktoerid: $aktorid")
       return pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
     }
 

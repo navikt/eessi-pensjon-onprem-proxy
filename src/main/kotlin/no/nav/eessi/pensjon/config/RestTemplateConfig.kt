@@ -52,7 +52,7 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
                 RequestResponseLoggerInterceptor(),
                 UsernameToOidcInterceptor(securityTokenExchangeService))
             .build().apply {
-                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory().apply { setOutputStreaming(false)})
             }
 
     }

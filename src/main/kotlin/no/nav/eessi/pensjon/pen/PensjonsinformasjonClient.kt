@@ -42,6 +42,7 @@ class PensjonsinformasjonClient(private val pensjonInformasjonRestTemplate: Rest
                         HttpMethod.POST,
                         requestEntity,
                         String::class.java)
+                logger.debug("*** body: ${responseEntity.body!!}")
                 responseEntity.body!!
 
             } catch (hsee: HttpServerErrorException) {
