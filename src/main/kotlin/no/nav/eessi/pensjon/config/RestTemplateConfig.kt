@@ -56,7 +56,7 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
     fun pensjonInformasjonRestTemplate() = buildRestTemplateCustomSystemUser(peninfourl, srvFagmodulUsername, srvFagmodulPassword)
 
     @Bean
-    fun behandleHendelseRestTemplate() = buildRestTemplate(penBeandleHendelseurl)
+    fun behandleHendelseRestTemplate() = buildRestTemplateCustomSystemUser(penBeandleHendelseurl, srvFagmodulUsername, srvFagmodulPassword)
 
     @Bean
     fun bestemSakOidcRestTemplate() = buildRestTemplate(bestemSakUrl)
