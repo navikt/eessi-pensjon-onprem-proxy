@@ -31,8 +31,6 @@ import java.util.*
 @Configuration
 class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
 
-    private val logger = LoggerFactory.getLogger(RestTemplateConfig::class.java)
-
     @Value("\${NORG2_URL}")
     lateinit var norg2Url: String
 
@@ -59,6 +57,10 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
 
     @Bean
     fun behandleHendelseRestTemplate() = buildRestTemplate(penBeandleHendelseurl)
+
+    @Bean
+    fun bestemSakOidcRestTemplate() = buildRestTemplate(bestemSakUrl)
+
 
     private fun buildRestTemplate(url: String): RestTemplate {
         return RestTemplateBuilder()
@@ -88,23 +90,7 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
             }
     }
 
-
-    @Bean
-    fun bestemSakOidcRestTemplate(templateBuilder: RestTemplateBuilder): RestTemplate {
-        return templateBuilder
-            .rootUri(bestemSakUrl)
-            .errorHandler(DefaultResponseErrorHandler())
-            .additionalInterceptors(
-                RequestIdHeaderInterceptor(),
-                RequestResponseLoggerInterceptor(),
-                UsernameToOidcInterceptor(securityTokenExchangeService))
-            .build().apply {
-                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-            }
-    }
-
-
-    class CustomUsernameToOidcInterceptor(private val username: String, private val password: String, private val securityTokenExchangeService: STSService) : ClientHttpRequestInterceptor {
+    private inner class CustomUsernameToOidcInterceptor(private val username: String, private val password: String, private val securityTokenExchangeService: STSService) : ClientHttpRequestInterceptor {
         private val logger = LoggerFactory.getLogger(CustomUsernameToOidcInterceptor::class.java)
 
         override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
@@ -119,15 +105,12 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
                     .queryParam("grant_type", "client_credentials")
                     .queryParam("scope", "openid")
                     .build().toUriString()
-
                 logger.debug("Kaller STS for å bytte username/password til OIDC token")
                 val response = customSecurityTokenExchangeBasicAuthRestTemplate(username, password).getForObject(
                     uri,
                     SecurityTokenResponse::class.java
                 )
-
-                logger.debug("SecurityTokenResponse $response")
-
+                logger.debug("CustomSecurityTokenResponse $response")
                 response!!.accessToken
             } catch (ex: HttpStatusCodeException) {
                 logger.error("En feil oppstod under bytting av username/password til OIDC token: ", ex)
@@ -137,20 +120,14 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
                 throw RuntimeException("En feil oppstod under bytting av username/password til OIDC token: ", ex)
             }
         }
-
         fun customSecurityTokenExchangeBasicAuthRestTemplate(username: String, password: String): RestTemplate {
             logger.info("Oppretter RestTemplate for securityTokenExchangeBasicAuthRestTemplate")
             return RestTemplateBuilder()
                 .additionalInterceptors(
                     RequestIdHeaderInterceptor(),
-                    BasicAuthenticationInterceptor(username, password),
-                    RequestResponseLoggerInterceptor()
-                ).build().apply {
-                    requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-                }
+                    BasicAuthenticationInterceptor(username, password)
+                ).build()
         }
-
-
     }
 
 }

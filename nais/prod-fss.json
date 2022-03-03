@@ -1,3 +1,4 @@
 {
-  "serviceuserkv": "/serviceuser/data/prod/srveessi-pensjon-journalforing"
+  "serviceuserkv": "/serviceuser/data/prod/srveessi-pensjon-journalforing",
+  "serviceuserfagkv": "/serviceuser/data/prod/srveessipensjon"
 }
