@@ -45,7 +45,6 @@ then
     export srvfagmodulusername=$(cat /var/run/secrets/nais.io/srveessipensjon/username)
 fi
 
-
 # Team namespace Q1
 echo "Sjekker srvpassword eessi-pensjon-journalforing q1 i team namespace"
 if test -f /var/run/secrets/nais.io/srveessi-pensjon-journalforing-q1/password;

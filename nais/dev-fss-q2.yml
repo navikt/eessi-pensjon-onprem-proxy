@@ -77,7 +77,7 @@ spec:
   vault:
     enabled: true
     paths:
-      - kvPath: {{serviceuserkv}}
+      - kvPath: /serviceuser/data/dev/srveessi-pensjon-journalforing
         mountPath: /var/run/secrets/nais.io/srveessi-pensjon-journalforing-q2
-      - kvPath: {{serviceuserfagkv}}
+      - kvPath: /serviceuser/data/dev/srveessipensjon
         mountPath: /var/run/secrets/nais.io/srveessipensjon
