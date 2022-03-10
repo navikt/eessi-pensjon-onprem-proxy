@@ -49,6 +49,12 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
     @Value("\${srvfagmodulusername}")
     lateinit var srvFagmodulUsername: String
 
+    @Value("\${PDL_PERSON_MOTTAK_URL}")
+    lateinit var pdlMottakUrl: String
+
+    @Bean
+    fun personMottakRestTemplate() = buildRestTemplate(pdlMottakUrl)
+
     @Bean
     fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
 
