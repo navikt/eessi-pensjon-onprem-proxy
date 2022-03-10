@@ -55,7 +55,7 @@ fi
 echo "Sjekker srvpdlppusername for i eessi-pensjon-pdl-produsent"
 if test -f /var/run/secrets/nais.io/srveessipensjonpdlp/username;
 then
-    echo "Setter srvfagmodulusername i eessi-pensjon-pdl-produsent"
+    echo "Setter srvpdlppusername i eessi-pensjon-pdl-produsent"
     export srvpdlpusername=$(cat /var/run/secrets/nais.io/srveessipensjonpdlp/username)
 fi
 
