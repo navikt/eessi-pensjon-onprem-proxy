@@ -31,18 +31,32 @@ then
 fi
 
 # Team namespace Q2/Q1
-echo "Sjekker srvfagmodulpassword eessi-pensjon-fagmodul q2 i team namespace"
+echo "Sjekker srvfagmodulpassword eessi-pensjon-fagmodul"
 if test -f /var/run/secrets/nais.io/srveessipensjon/password;
 then
-  echo "Setter srvfagmodulpassword eessi-pensjon-fagmodul q2 i team namespace"
+  echo "Setter srvfagmodulpassword eessi-pensjon-fagmodul"
     export srvfagmodulpassword=$(cat /var/run/secrets/nais.io/srveessipensjon/password)
 fi
 
-echo "Sjekker srvfagmodulusername i eessi-pensjon-fagmodul q2 i team namespace"
+echo "Sjekker srvfagmodulusername i eessi-pensjon-fagmodul"
 if test -f /var/run/secrets/nais.io/srveessipensjon/username;
 then
-    echo "Setter srvfagmodulusername i eessi-pensjon-fagmodul q2 team namespace"
+    echo "Setter srvfagmodulusername i eessi-pensjon-fagmodul"
     export srvfagmodulusername=$(cat /var/run/secrets/nais.io/srveessipensjon/username)
+fi
+
+echo "Sjekker srvpdlppassword for eessi-pensjon-pdl-produsent"
+if test -f /var/run/secrets/nais.io/srveessipensjonpdlp/password;
+then
+  echo "Setter srvpdlppassword for eessi-pensjon-pdl-produsent"
+    export srvpdlppassword=$(cat /var/run/secrets/nais.io/srveessipensjonpdlp/password)
+fi
+
+echo "Sjekker srvpdlppusername for i eessi-pensjon-pdl-produsent"
+if test -f /var/run/secrets/nais.io/srveessipensjonpdlp/username;
+then
+    echo "Setter srvfagmodulusername i eessi-pensjon-pdl-produsent"
+    export srvpdlpusername=$(cat /var/run/secrets/nais.io/srveessipensjonpdlp/username)
 fi
 
 # Team namespace Q1

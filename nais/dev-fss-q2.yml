@@ -83,3 +83,5 @@ spec:
         mountPath: /var/run/secrets/nais.io/srveessi-pensjon-journalforing-q2
       - kvPath: /serviceuser/data/dev/srveessipensjon
         mountPath: /var/run/secrets/nais.io/srveessipensjon
+      - kvPath: /serviceuser/data/dev/srveessipensjonpdlp
+        mountPath: /var/run/secrets/nais.io/srveessipensjonpdlp
