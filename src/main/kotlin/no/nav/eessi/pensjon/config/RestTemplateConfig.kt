@@ -103,6 +103,7 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
         override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
             val token = getCustomSystemOidcToken(username, password)
             request.headers[HttpHeaders.AUTHORIZATION] = "Bearer $token"
+            request.headers["Nav-Consumer-Token"] = "Bearer ${token}"
             return execution.execute(request, body)
         }
 
@@ -136,6 +137,5 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
                 ).build()
         }
     }
-
 }
 
