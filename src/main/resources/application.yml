@@ -14,7 +14,7 @@ no.nav.security.jwt:
       accepted_audience: 'eessi-fagmodul-${ENV},eessi-pensjon-frontend-api-fss-${ENV},ida-q'
     servicebruker:
       discoveryurl: '${security-token-service-openid-configuration_url}'
-      accepted_audience: 'srvpensjon,srveessipensjon,srveessi-pensjon-j,srveessi-pensjon-b'
+      accepted_audience: 'srvpensjon,srveessipensjon,srveessi-pensjon-j,srveessi-pensjon-b,srveessipensjonpdlp'
 
 
 # Empty on purpose so that oidc-spring-support doesn't use http.proxy
