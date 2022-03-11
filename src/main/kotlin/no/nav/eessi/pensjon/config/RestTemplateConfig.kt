@@ -102,8 +102,10 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
 
         override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
             val token = getCustomSystemOidcToken(username, password)
-            request.headers[HttpHeaders.AUTHORIZATION] = "Bearer $token"
-            request.headers["Nav-Consumer-Token"] = "Bearer ${token}"
+
+            request.headers.setBearerAuth(token)
+            request.headers["Nav-Consumer-Token"] = "Bearer $token"
+
             return execution.execute(request, body)
         }
 
@@ -113,13 +115,16 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
                     .queryParam("grant_type", "client_credentials")
                     .queryParam("scope", "openid")
                     .build().toUriString()
+
                 logger.debug("Kaller STS for å bytte username/password til OIDC token")
+
                 val response = customSecurityTokenExchangeBasicAuthRestTemplate(username, password).getForObject(
                     uri,
                     SecurityTokenResponse::class.java
                 )
-                logger.debug("CustomSecurityTokenResponse $response")
+                logger.debug("*** CustomSecurityTokenResponse: ${response!!.accessToken}")
                 response!!.accessToken
+
             } catch (ex: HttpStatusCodeException) {
                 logger.error("En feil oppstod under bytting av username/password til OIDC token: ", ex)
                 throw RuntimeException("En feil oppstod under bytting av username/password til OIDC token: ", ex)
@@ -128,6 +133,7 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
                 throw RuntimeException("En feil oppstod under bytting av username/password til OIDC token: ", ex)
             }
         }
+
         fun customSecurityTokenExchangeBasicAuthRestTemplate(username: String, password: String): RestTemplate {
             logger.info("Oppretter RestTemplate for securityTokenExchangeBasicAuthRestTemplate")
             return RestTemplateBuilder()
