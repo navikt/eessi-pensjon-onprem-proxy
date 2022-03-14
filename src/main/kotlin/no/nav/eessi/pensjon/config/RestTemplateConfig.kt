@@ -5,7 +5,6 @@ import no.nav.eessi.pensjon.logging.RequestResponseLoggerInterceptor
 import no.nav.eessi.pensjon.security.sts.STSService
 import no.nav.eessi.pensjon.security.sts.SecurityTokenResponse
 import no.nav.eessi.pensjon.security.sts.UsernameToOidcInterceptor
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -25,8 +24,6 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @Configuration
 class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
-
-    private val logger: Logger by lazy { LoggerFactory.getLogger(RestTemplateConfig::class.java) }
 
     @Value("\${NORG2_URL}")
     lateinit var norg2Url: String
@@ -96,7 +93,7 @@ class RestTemplateConfig(private val securityTokenExchangeService: STSService) {
             )
             .build().apply {
                 requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory().apply { setOutputStreaming(false)})
-            }.also { logger.info("username: $username, url: $url") }
+            }
     }
 
     private inner class CustomUsernameToOidcInterceptor(private val username: String, private val password: String, private val securityTokenExchangeService: STSService) : ClientHttpRequestInterceptor {
