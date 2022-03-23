@@ -4,7 +4,7 @@ buildscript {
         kotlinVersion = '1.6.10'
         springBootVersion = '2.6.4'
         jacksonModuleKotlinVersion = '2.13.2'
-        tokenSupportVersion = '2.0.13'
+        tokenSupportVersion = '1.3.9'
         logstashLogbackVersion = '7.0.1'
         pensjonInformasjonVersion = '9.4.10'
         epeuxVersion = '1.1.63'
@@ -93,7 +93,6 @@ dependencies {
 
     //mock - test
     testImplementation("org.junit.platform:junit-platform-suite-api:1.8.2")
-    //testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test:${kotlinVersion}") {
         exclude module: 'kotlin-test-js'
         exclude module: 'kotlin-test-testng'
@@ -113,7 +112,7 @@ dependencies {
     implementation("no.nav.security:token-validation-jaxrs:${tokenSupportVersion}")
     implementation("no.nav.security:token-client-spring:${tokenSupportVersion}")
     // Only used for starting up locally
-    implementation("no.nav.security:token-validation-test-support:2.0.5")
+    implementation("no.nav.security:token-validation-test-support:${tokenSupportVersion}")
     testImplementation("org.pac4j:spring-webmvc-pac4j:5.1.0")
 
     implementation("no.nav.eessi.pensjon:ep-security-sts:${epSecurityStsVersion}")
