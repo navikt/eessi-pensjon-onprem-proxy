@@ -6,7 +6,7 @@ import org.springframework.boot.runApplication
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Profile
 
-@EnableJwtTokenValidation(ignore = ["org.springframework", "springfox.documentation", "no.nav.eessi.pensjon.fagmodul.health.DiagnosticsController"])
+@EnableJwtTokenValidation(ignore = ["org.springframework", "no.nav.eessi.pensjon.fagmodul.health.DiagnosticsController"])
 @SpringBootApplication
 @EnableCaching
 @Profile("!unsecured-webmvctest")
