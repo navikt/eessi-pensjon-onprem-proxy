@@ -25,7 +25,7 @@ jobs:
         run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-onprem-proxy:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
 
       # JAVA 11
-      - name: 'Java 11'
+      - name: 'Java 17'
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 17
