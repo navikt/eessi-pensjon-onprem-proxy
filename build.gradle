@@ -44,7 +44,7 @@ apply plugin: "org.jetbrains.kotlin.plugin.spring"
 apply plugin: "org.jetbrains.kotlin.plugin.allopen"
 apply plugin: "org.springframework.boot"
 
-assert JavaVersion.current().isJava11Compatible(): "Java 17 or newer is required"
+assert JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17): "Java 17 or newer is required"
 
 group = 'no.nav.eessi'
 
