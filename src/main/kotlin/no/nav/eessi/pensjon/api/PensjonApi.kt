@@ -42,7 +42,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
 //        return proxyPensjonSak.measure {
-            pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
+        return pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
 //        }
     }
 
@@ -53,7 +53,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
 
             val penresult = pensjonsinformasjonClient.hentAltPaaFnr(fnr, req)
             logger.debug("pensjoninforesultat: $penresult")
-            penresult
+            return penresult
         //}
     }
 
@@ -65,21 +65,21 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
             if (vedtakid == "59965174") {
                 logger.info("pensjonsinformasjon: $vedtaksresult")
             }
-            vedtaksresult
+            return vedtaksresult
         //}
     }
 
     @PostMapping("/pen/api/behandlehendelse/utland/v1/")
     fun behandleHendelse(@RequestBody req: String) {
         //proxyPensjonBehandleHendelse.measure {
-            behandleHendelseKlient.opprettBehandleHendelse(req)
+        return behandleHendelseKlient.opprettBehandleHendelse(req)
         //}
     }
 
     @PostMapping("/pen/api/bestemsak/v1")
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
         //return proxyBestemsak.measure {
-            bestemSakKlient.kallBestemSak(req)
+        return bestemSakKlient.kallBestemSak(req)
         //}
     }
 
