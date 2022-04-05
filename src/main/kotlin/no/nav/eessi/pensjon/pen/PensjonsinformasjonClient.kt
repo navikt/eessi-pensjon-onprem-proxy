@@ -19,21 +19,38 @@ class PensjonsinformasjonClient(private val pensjonInformasjonRestTemplate: Rest
 
     private val logger = LoggerFactory.getLogger(PensjonsinformasjonClient::class.java)
 
+    private enum class REQUESTPATH(val path: String) {
+        FNR("/fnr"),
+        VEDTAK("/vedtak"),
+        AKTOR("/aktor");
+    }
+
+    @Deprecated("Replace with hentAltPaaFNR")
     fun hentAltPaaAktoerId(aktoerId: String, requestBody: String): String {
-        return doRequest("/aktor/", aktoerId, requestBody)
+        return doRequest(REQUESTPATH.AKTOR, aktoerId, requestBody)
+    }
+
+    fun hentAltPaaFnr(fnr: String, requestBody: String): String {
+        return doRequest(REQUESTPATH.FNR, fnr, requestBody)
+
     }
 
     fun hentAltPaaVedtak(vedtaksId: String, requestBody: String): String {
-        return doRequest("/vedtak", vedtaksId, requestBody)
+        return doRequest(REQUESTPATH.VEDTAK, vedtaksId, requestBody)
     }
 
-    private fun doRequest(path: String, id: String, requestBody: String): String {
+    private fun doRequest(path: REQUESTPATH, id: String, requestBody: String): String {
 
         val headers = HttpHeaders()
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+
+        if (path == REQUESTPATH.FNR) {
+            headers.add("fnr", id)
+        }
+
         val requestEntity = HttpEntity(requestBody, headers)
 
-        val uriBuilder = UriComponentsBuilder.fromPath(path).pathSegment(id)
+        val uriBuilder = UriComponentsBuilder.fromPath(path.path).pathSegment(id)
         logger.debug("Pensjoninformasjon Uri:  ${uriBuilder.toUriString()}")
 
             return try {
