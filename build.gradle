@@ -115,13 +115,17 @@ dependencies {
     implementation("no.nav.security:token-validation-test-support:2.0.5")
     testImplementation("org.pac4j:spring-webmvc-pac4j:5.1.0")
 
-    implementation("no.nav.eessi.pensjon:ep-security-sts:${epSecurityStsVersion}")
-    implementation("no.nav.eessi.pensjon:ep-logging:${epLoggingVersion}")
-    implementation("no.nav.eessi.pensjon:ep-eux:${epeuxVersion}")
     implementation("no.nav.eessi.pensjon:ep-metrics:$epMetricsVersion")
-
-    // Micrometer
-    implementation("io.micrometer:micrometer-registry-prometheus")
+    implementation("no.nav.eessi.pensjon:ep-logging:${epLoggingVersion}")
+    implementation("no.nav.eessi.pensjon:ep-security-sts:${epSecurityStsVersion}") {
+        exclude module: 'ep-metrics'
+    }
+    implementation("no.nav.eessi.pensjon:ep-eux:${epeuxVersion}"){
+        exclude module: 'ep-metrics'
+    }
+    //implementation(files("/Users/jens/git/ep-metrics/build/libs/ep-metrics-0.4.14.jar"))
+    //Micrometer
+    implementation("io.micrometer:micrometer-registry-prometheus:1.8.4")
 }
 
 

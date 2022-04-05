@@ -29,58 +29,54 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
 
     private lateinit var proxyBestemsak: MetricsHelper.Metric
     private lateinit var proxyPensjonSak: MetricsHelper.Metric
+    private lateinit var proxyPensjonSakFnr: MetricsHelper.Metric
     private lateinit var proxyPensjonVedtak: MetricsHelper.Metric
     private lateinit var proxyPensjonBehandleHendelse: MetricsHelper.Metric
 
     @PostConstruct
     fun initMetrics() {
+        proxyPensjonBehandleHendelse = metricsHelper.init("proxyHendelse")
         proxyBestemsak = metricsHelper.init("proxyBestemsak")
-        proxyBestemsak = metricsHelper.init("proxyPensjonSak")
-        proxyBestemsak = metricsHelper.init("proxyPensjonVedtak")
+        proxyPensjonSak = metricsHelper.init("proxyPensjonSak")
+        proxyPensjonSakFnr = metricsHelper.init("proxyPensjonSakFnr")
+        proxyPensjonVedtak = metricsHelper.init("proxyPensjonVedtak")
     }
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
-//        return proxyPensjonSak.measure {
-        return pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
-//        }
+        return proxyPensjonSak.measure {
+            pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
+        }
     }
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/fnr")
     fun hentSakerPaaFnr(@RequestBody req : String, @RequestHeader ("fnr") fnr: String ): String {
-        //return proxyPensjonSak.measure {
-            logger.info("Pensjoninformasjonsrequest: $req")
-
-            val penresult = pensjonsinformasjonClient.hentAltPaaFnr(fnr, req)
-            logger.debug("pensjoninforesultat: $penresult")
-            return penresult
-        //}
+        return proxyPensjonSakFnr.measure {
+            logger.debug("Pensjoninformasjonsrequest: $req")
+            pensjonsinformasjonClient.hentAltPaaFnr(fnr, req)
+        }
     }
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/vedtak/{vedtakid}")
     fun hentVedtak(@RequestBody req : String, @PathVariable("vedtakid", required = true) vedtakid: String): String {
-        //return proxyPensjonVedtak.measure {
-            logger.info("hentvedtakreq: $req")
-            val vedtaksresult = pensjonsinformasjonClient.hentAltPaaVedtak(vedtakid, req)
-            if (vedtakid == "59965174") {
-                logger.info("pensjonsinformasjon: $vedtaksresult")
-            }
-            return vedtaksresult
-        //}
+        return proxyPensjonVedtak.measure {
+            logger.debug("Pensjoninformasjonsrequest: $req")
+            pensjonsinformasjonClient.hentAltPaaVedtak(vedtakid, req)
+       }
     }
 
     @PostMapping("/pen/api/behandlehendelse/utland/v1/")
     fun behandleHendelse(@RequestBody req: String) {
-        //proxyPensjonBehandleHendelse.measure {
-        return behandleHendelseKlient.opprettBehandleHendelse(req)
-        //}
+        proxyPensjonBehandleHendelse.measure {
+            behandleHendelseKlient.opprettBehandleHendelse(req)
+        }
     }
 
     @PostMapping("/pen/api/bestemsak/v1")
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
-        //return proxyBestemsak.measure {
-        return bestemSakKlient.kallBestemSak(req)
-        //}
+        return proxyBestemsak.measure {
+            bestemSakKlient.kallBestemSak(req)
+        }
     }
 
 }
