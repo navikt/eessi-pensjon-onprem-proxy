@@ -41,46 +41,46 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
-        return proxyPensjonSak.measure {
+//        return proxyPensjonSak.measure {
             pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
-        }
+//        }
     }
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/fnr")
     fun hentSakerPaaFnr(@RequestBody req : String, @RequestHeader ("fnr") fnr: String ): String {
-        return proxyPensjonSak.measure {
+        //return proxyPensjonSak.measure {
             logger.info("Pensjoninformasjonsrequest: $req")
 
             val penresult = pensjonsinformasjonClient.hentAltPaaFnr(fnr, req)
             logger.debug("pensjoninforesultat: $penresult")
             penresult
-        }
+        //}
     }
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/vedtak/{vedtakid}")
     fun hentVedtak(@RequestBody req : String, @PathVariable("vedtakid", required = true) vedtakid: String): String {
-        return proxyPensjonVedtak.measure {
+        //return proxyPensjonVedtak.measure {
             logger.info("hentvedtakreq: $req")
             val vedtaksresult = pensjonsinformasjonClient.hentAltPaaVedtak(vedtakid, req)
             if (vedtakid == "59965174") {
                 logger.info("pensjonsinformasjon: $vedtaksresult")
             }
             vedtaksresult
-        }
+        //}
     }
 
     @PostMapping("/pen/api/behandlehendelse/utland/v1/")
     fun behandleHendelse(@RequestBody req: String) {
-        proxyPensjonBehandleHendelse.measure {
+        //proxyPensjonBehandleHendelse.measure {
             behandleHendelseKlient.opprettBehandleHendelse(req)
-        }
+        //}
     }
 
     @PostMapping("/pen/api/bestemsak/v1")
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
-        return proxyBestemsak.measure {
+        //return proxyBestemsak.measure {
             bestemSakKlient.kallBestemSak(req)
-        }
+        //}
     }
 
 }
