@@ -1,20 +1,12 @@
-package no.nav.eessi.pensjon.kodeverk
+package no.nav.eessi.pensjon.klienter
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
-import no.nav.eessi.pensjon.metrics.MetricsHelper
-import no.nav.eessi.pensjon.utils.toJson
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.cache.annotation.CacheConfig
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.HttpServerErrorException
 import org.springframework.web.client.RestTemplate
@@ -22,13 +14,12 @@ import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.util.UriComponents
 import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
-import javax.annotation.PostConstruct
 
 @Component
-class KodeverkClient(private val kodeRestTemplate: RestTemplate,
+class KodeverkKlient(private val kodeRestTemplate: RestTemplate,
                      @Value("\${NAIS_APP_NAME}") private val appName: String) {
 
-    private val logger = LoggerFactory.getLogger(KodeverkClient::class.java)
+    private val logger = LoggerFactory.getLogger(KodeverkKlient::class.java)
 
     private fun doRequest(builder: UriComponents) : String {
         try {

@@ -1,4 +1,4 @@
-package no.nav.eessi.pensjon.pdlmottak
+package no.nav.eessi.pensjon.klienter
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

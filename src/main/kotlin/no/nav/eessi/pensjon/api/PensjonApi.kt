@@ -1,16 +1,19 @@
 package no.nav.eessi.pensjon.api
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
+import no.nav.eessi.pensjon.klienter.BehandleHendelseKlient
+import no.nav.eessi.pensjon.klienter.BestemSakKlient
+import no.nav.eessi.pensjon.klienter.BestemSakRequest
+import no.nav.eessi.pensjon.klienter.BestemSakResponse
+import no.nav.eessi.pensjon.klienter.FagmodulKlient
+import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
 import no.nav.eessi.pensjon.metrics.MetricsHelper
-import no.nav.eessi.pensjon.pen.BehandleHendelseKlient
-import no.nav.eessi.pensjon.pen.BestemSakKlient
-import no.nav.eessi.pensjon.pen.BestemSakRequest
-import no.nav.eessi.pensjon.pen.BestemSakResponse
-import no.nav.eessi.pensjon.pen.PensjonsinformasjonClient
 import no.nav.security.token.support.core.api.Protected
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -23,6 +26,7 @@ import javax.annotation.PostConstruct
 class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClient,
                  private val behandleHendelseKlient: BehandleHendelseKlient,
                  private val bestemSakKlient: BestemSakKlient,
+                 private val fagmodulKlient: FagmodulKlient,
                  @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
 
     private val logger: Logger by lazy { LoggerFactory.getLogger(PensjonApi::class.java) }
@@ -32,6 +36,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     private lateinit var proxyPensjonSakFnr: MetricsHelper.Metric
     private lateinit var proxyPensjonVedtak: MetricsHelper.Metric
     private lateinit var proxyPensjonBehandleHendelse: MetricsHelper.Metric
+    private lateinit var proxyPensjonUtland: MetricsHelper.Metric
 
     @PostConstruct
     fun initMetrics() {
@@ -40,6 +45,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         proxyPensjonSak = metricsHelper.init("proxyPensjonSak")
         proxyPensjonSakFnr = metricsHelper.init("proxyPensjonSakFnr")
         proxyPensjonVedtak = metricsHelper.init("proxyPensjonVedtak")
+        proxyPensjonUtland = metricsHelper.init("proxyPensjonUtland")
     }
 
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
@@ -76,6 +82,14 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
         return proxyBestemsak.measure {
             bestemSakKlient.kallBestemSak(req)
+        }
+    }
+
+    @GetMapping("/pesys/hentKravUtland/{bucId}")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    fun hentKravUtland(@PathVariable("bucId", required = true) bucId: String): String {
+        return proxyPensjonUtland.measure {
+            fagmodulKlient.hentJsonDataFraFagmodul("/pesys/hentKravUtland/$bucId")
         }
     }
 

@@ -13,15 +13,16 @@ import javax.annotation.PostConstruct
 
 @Protected
 @RestController
-class BrukerinformasjonController(private val ldapService: BrukerInformasjonService,
-              @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
+class BrukerinformasjonController(
+    private val ldapService: BrukerInformasjonService,
+    @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
 
-      private lateinit var proxyLDAP: MetricsHelper.Metric
+    private lateinit var proxyLDAP: MetricsHelper.Metric
 
-      @PostConstruct
-      fun initMetrics() {
-          proxyLDAP = metricsHelper.init("proxyLDAP")
-      }
+    @PostConstruct
+    fun initMetrics() {
+      proxyLDAP = metricsHelper.init("proxyLDAP")
+    }
 
     @GetMapping("/brukerinfo/{navident}")
     fun hentBrukerInformasjon(@PathVariable("navident", required = true) navident: String): BrukerInformasjon {

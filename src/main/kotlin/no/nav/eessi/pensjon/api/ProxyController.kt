@@ -1,19 +1,22 @@
 package no.nav.eessi.pensjon.api
 
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
-import no.nav.eessi.pensjon.klienter.norg2.Norg2Klient
-import no.nav.eessi.pensjon.kodeverk.KodeverkClient
+import no.nav.eessi.pensjon.klienter.KodeverkKlient
+import no.nav.eessi.pensjon.klienter.Norg2Klient
 import no.nav.eessi.pensjon.metrics.MetricsHelper
-import no.nav.eessi.pensjon.models.Enhet
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 import javax.annotation.PostConstruct
 
 @RestController
 @Protected
-class ProxyController(private val norg2Service: Norg2Klient,
-                      private val kodeverkClient: KodeverkClient,
+class ProxyController(private val norg2Klient: Norg2Klient,
+                      private val kodeverkKient: KodeverkKlient,
                       @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
 
     private lateinit var proxyNorg2: MetricsHelper.Metric
@@ -28,14 +31,14 @@ class ProxyController(private val norg2Service: Norg2Klient,
     @PostMapping("/api/v1/arbeidsfordeling")
     fun norgArbeidsfordeling(@RequestBody req : String): String? {
         return proxyNorg2.measure {
-            norg2Service.hentArbeidsfordelingEnheter(req)
+            norg2Klient.hentArbeidsfordelingEnheter(req)
         }
     }
 
     @GetMapping("/api/v1/hierarki/{hierarki}/noder")
     private fun kentLandkoderFraKodeverk(@PathVariable("hierarki", required = true) hierarki: String) : String {
         return proxyKodeverk.measure {
-            kodeverkClient.hentHierarki(hierarki)
+            kodeverkKient.hentHierarki(hierarki)
         }
     }
 

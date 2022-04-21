@@ -1,4 +1,4 @@
-package no.nav.eessi.pensjon.pen
+package no.nav.eessi.pensjon.klienter
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper

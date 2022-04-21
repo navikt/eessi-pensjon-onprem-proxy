@@ -4,14 +4,19 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
+import no.nav.eessi.pensjon.klienter.BehandleHendelseKlient
+import no.nav.eessi.pensjon.klienter.BestemSakKlient
+import no.nav.eessi.pensjon.klienter.BestemSakRequest
+import no.nav.eessi.pensjon.klienter.BestemSakResponse
+import no.nav.eessi.pensjon.klienter.FagmodulKlient
+import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
 import no.nav.eessi.pensjon.models.SakInformasjon
-import no.nav.eessi.pensjon.pen.BehandleHendelseKlient
-import no.nav.eessi.pensjon.pen.BestemSakKlient
-import no.nav.eessi.pensjon.pen.BestemSakRequest
-import no.nav.eessi.pensjon.pen.BestemSakResponse
-import no.nav.eessi.pensjon.pen.PensjonsinformasjonClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.client.RestTemplate
 import kotlin.test.assertEquals
 
 class PensjonApiTest {
@@ -21,7 +26,10 @@ class PensjonApiTest {
     private val behandleHendelseKlient: BehandleHendelseKlient = mockk()
     private val bestemSakKlient: BestemSakKlient = mockk()
 
-    private val api = PensjonApi(pensjonsinformasjonClient, behandleHendelseKlient, bestemSakKlient)
+    private val fagmodulRestMock: RestTemplate = mockk()
+    private val fagmodulKlient = FagmodulKlient(fagmodulRestMock)
+
+    private val api = PensjonApi(pensjonsinformasjonClient, behandleHendelseKlient, bestemSakKlient, fagmodulKlient)
 
     @BeforeEach
     fun before() {
@@ -96,5 +104,29 @@ class PensjonApiTest {
         verify (exactly = 1) { behandleHendelseKlient.opprettBehandleHendelse(any()) }
 
     }
+
+
+    @Test
+    fun fagmodulKrav() {
+        val bucId = "324234"
+        val mockResponse = "mock Json"
+
+        every { fagmodulRestMock.exchange(
+                    any<String>(),
+                    HttpMethod.GET,
+                    null,
+                    String::class.java)
+        } returns ResponseEntity( mockResponse, HttpStatus.OK)
+
+        val result = api.hentKravUtland(bucId)
+
+        verify (exactly = 1) { fagmodulRestMock.exchange(
+            "/pesys/hentKravUtland/$bucId",
+            HttpMethod.GET,
+            null,
+            String::class.java) }
+        assertEquals(mockResponse, result)
+    }
+
 
 }

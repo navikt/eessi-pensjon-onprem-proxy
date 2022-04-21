@@ -4,6 +4,8 @@ import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import no.nav.eessi.pensjon.UnsecuredWebMvcTestLauncher
 import no.nav.eessi.pensjon.security.sts.STSService
+import no.nav.security.token.support.client.core.oauth2.OAuth2AccessTokenService
+import no.nav.security.token.support.client.spring.ClientConfigurationProperties
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -30,6 +32,30 @@ class PensjonIntegrasjonTest {
 
     @MockkBean(name =  "pensjonInformasjonRestTemplate")
     private lateinit var mockTemplate: RestTemplate
+
+    @MockkBean(name = "personMottakRestTemplate")
+    private lateinit var personMottakRestTemplate: RestTemplate
+
+    @MockkBean(name = "fagmodulOAuth2RestTemplate")
+    private lateinit var fagmodulOAuth2RestTemplate: RestTemplate
+
+    @MockkBean(name = "behandleHendelseRestTemplate")
+    private lateinit var behandleHendelseRestTemplate: RestTemplate
+
+    @MockkBean(name = "bestemSakOidcRestTemplate")
+    private lateinit var bestemSakOidcRestTemplate: RestTemplate
+
+    @MockkBean(name = "norg2OidcRestTemplate")
+    private lateinit var norg2OidcRestTemplate: RestTemplate
+
+    @MockkBean(name = "kodeRestTemplate")
+    private lateinit var kodeRestTemplate: RestTemplate
+
+    @MockkBean
+    private lateinit var clientConfigurationProperties: ClientConfigurationProperties
+
+    @MockkBean
+    private lateinit var oAuth2AccessTokenService: OAuth2AccessTokenService
 
     @MockkBean
     private lateinit var stsService: STSService

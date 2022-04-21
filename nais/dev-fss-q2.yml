@@ -43,6 +43,10 @@ spec:
       value: https://security-token-service.nais.preprod.local/rest/v1/sts/.well-known/openid-configuration
     - name: SECURITYTOKENSERVICE_URL
       value: https://sts-q2.preprod.local/SecurityTokenServiceProvider/
+    - name: AZURE_APP_FAGMODUL_CLIENT_ID
+      value: dev-gcp.eessipensjon.eessi-pensjon-fagmodul-q2
+    - name: FAGMODUL_URL
+      value: https://eessi-pensjon-fagmodul-q2.dev.intern.nav.no
     - name: NORG2_URL
       value: https://app-q4.adeo.no/norg2/
     - name: KODEVERK_REST_API_URL

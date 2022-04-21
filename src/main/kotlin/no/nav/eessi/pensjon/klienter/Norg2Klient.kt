@@ -1,6 +1,5 @@
-package no.nav.eessi.pensjon.klienter.norg2
+package no.nav.eessi.pensjon.klienter
 
-import no.nav.eessi.pensjon.metrics.MetricsHelper
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -8,7 +7,6 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
-import javax.annotation.PostConstruct
 
 @Component
 class Norg2Klient(private val norg2OidcRestTemplate: RestTemplate) {

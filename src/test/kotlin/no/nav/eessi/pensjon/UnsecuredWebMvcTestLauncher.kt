@@ -13,6 +13,8 @@ import org.springframework.test.annotation.DirtiesContext
 @DirtiesContext
 class UnsecuredWebMvcTestLauncher : SpringBootServletInitializer()
 
+
+
 fun main(args: Array<String>) {
     runApplication<UnsecuredWebMvcTestLauncher>(*args)
 }
