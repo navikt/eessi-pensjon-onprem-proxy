@@ -10,9 +10,11 @@ import no.nav.eessi.pensjon.klienter.FagmodulKlient
 import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import no.nav.security.token.support.core.api.Protected
+import no.nav.security.token.support.core.api.Unprotected
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.PostConstruct
 
 @RestController
-@Protected
+//@Protected
 class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClient,
                  private val behandleHendelseKlient: BehandleHendelseKlient,
                  private val bestemSakKlient: BestemSakKlient,
@@ -48,6 +50,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         proxyPensjonUtland = metricsHelper.init("proxyPensjonUtland")
     }
 
+    @Protected
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
         return proxyPensjonSak.measure {
@@ -55,6 +58,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         }
     }
 
+    @Protected
     @PostMapping("/pen/api/pensjonsinformasjon/v1/fnr")
     fun hentSakerPaaFnr(@RequestBody req : String, @RequestHeader ("fnr") fnr: String ): String {
         return proxyPensjonSakFnr.measure {
@@ -63,6 +67,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         }
     }
 
+    @Protected
     @PostMapping("/pen/api/pensjonsinformasjon/v1/vedtak/{vedtakid}")
     fun hentVedtak(@RequestBody req : String, @PathVariable("vedtakid", required = true) vedtakid: String): String {
         return proxyPensjonVedtak.measure {
@@ -71,6 +76,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
        }
     }
 
+    @Protected
     @PostMapping("/pen/api/behandlehendelse/utland/v1/")
     fun behandleHendelse(@RequestBody req: String) {
         proxyPensjonBehandleHendelse.measure {
@@ -78,6 +84,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         }
     }
 
+    @Protected
     @PostMapping("/pen/api/bestemsak/v1")
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
         return proxyBestemsak.measure {
@@ -85,9 +92,11 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         }
     }
 
+    @Unprotected
     @GetMapping("/pesys/hentKravUtland/{bucId}")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    fun hentKravUtland(@PathVariable("bucId", required = true) bucId: String): String {
+    fun hentKravUtland(@PathVariable("bucId", required = true) bucId: String, @RequestHeader(HttpHeaders.AUTHORIZATION) auth: String? = null): String {
+        logger.debug("tokenauth: $auth")
         return proxyPensjonUtland.measure {
             fagmodulKlient.hentJsonDataFraFagmodul("/pesys/hentKravUtland/$bucId")
         }
