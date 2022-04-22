@@ -33,6 +33,9 @@ spec:
         - application: eessi-pensjon-fagmodul-q2
           namespace: eessipensjon
           cluster: dev-gcp
+        - application: pensjon-pen-q2
+          namespace: teampensjon
+          cluster: dev-fss
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
