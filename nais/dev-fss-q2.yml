@@ -77,6 +77,7 @@ spec:
   image: {{ image }}
   ingresses:
     - https://eessi-pensjon-onprem-proxy-q2.dev-fss-pub.nais.io
+    - https://eessi-pensjon-onprem-proxy-q2.dev.intern.nav.no
   liveness:
     path: /internal/isalive
     port: 8080
