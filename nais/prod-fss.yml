@@ -27,7 +27,10 @@ spec:
         - application: eessi-pensjon-prefill
           namespace: eessipensjon
           cluster: prod-gcp
-        - application: eessi-pensjon-frontend-api
+        - application: eessi-pensjon-saksbehandling-api
+          namespace: eessipensjon
+          cluster: prod-gcp
+        - application: eessi-pensjon-fagmodul
           namespace: eessipensjon
           cluster: prod-gcp
   webproxy: true
