@@ -1,0 +1,39 @@
+
+NAIS_APP_NAME: "eessi-pensjon-onprem-proxy"
+
+METRICS_REQUESTFILTER_ENABLE: false
+
+ldap:
+  url: 'http://example.com:8090'
+  domain: 'test'
+  basedn: 'testdn'
+
+srvfagmodulusername: "bruker"
+srvfagmodulpassword: "password"
+
+srvusername: "bruker"
+srvpassword: "password"
+
+srvpdlppassword: "password"
+srvpdlpusername: "bruker"
+
+FAGMODUL_URL: 'http://example.com:8090'
+PDL_URL: 'http://example.com:8090'
+NORG2_URL: 'http://example.com'
+PENSJONSINFORMASJON_URL: 'http://example.com'
+PENSJON_BEHANDLEHENDELSE_URL: "http://example.com"
+BESTEMSAK_URL: "http://example.com"
+PDL_PERSON_MOTTAK_URL: "http://example.com"
+kodeverk:
+  rest-api:
+    url: "http://example.com"
+
+
+securityTokenService:
+  discoveryUrl: 'http://example.com'
+
+security-token-service-token:
+  url: 'https://example.com/SecurityTokenServiceProvider/'
+
+securitytokenservice:
+  url: 'https://example.com/SecurityTokenServiceProvider/'

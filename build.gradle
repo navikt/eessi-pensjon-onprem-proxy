@@ -7,10 +7,10 @@ buildscript {
         tokenSupportVersion = '2.0.14'
         logstashLogbackVersion = '7.0.1'
         pensjonInformasjonVersion = '9.4.10'
-        epeuxVersion = '1.1.+'
-        epMetricsVersion = "0.4.+"
-        epSecurityStsVersion = '0.0.+'
-        epLoggingVersion = '1.0.+'
+        epeuxVersion = '1.1.72'
+        epMetricsVersion = "0.4.25"
+        epSecurityStsVersion = '0.0.27'
+        epLoggingVersion = '1.0.22'
     }
 
     repositories {
