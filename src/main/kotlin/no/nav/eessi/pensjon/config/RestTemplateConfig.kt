@@ -171,9 +171,9 @@ class RestTemplateConfig(
                     uri,
                     SecurityTokenResponse::class.java
                 )
-               val accessToken = response.accessToken
+                val accessToken = response?.accessToken
                 logger.debug("*** CustomSecurityTokenResponse: $accessToken")
-               accessToken
+                accessToken!!
 
             } catch (ex: HttpStatusCodeException) {
                 logger.error("En feil oppstod under bytting av username/password til OIDC token: ", ex)
