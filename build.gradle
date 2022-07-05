@@ -103,12 +103,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 
-    //mock - test
-    testImplementation("org.junit.platform:junit-platform-suite-api:1.8.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:${kotlinVersion}") {
-        exclude module: 'kotlin-test-js'
-        exclude module: 'kotlin-test-testng'
-    }
+    testImplementation(platform("org.junit:junit-bom:5.8.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+
     testImplementation("io.mockk:mockk:1.12.4")
 
     // Forenklere mocking av beans, benyttes som mockito mockbean

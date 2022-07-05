@@ -11,13 +11,13 @@ import no.nav.eessi.pensjon.klienter.BestemSakResponse
 import no.nav.eessi.pensjon.klienter.FagmodulKlient
 import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
 import no.nav.eessi.pensjon.models.SakInformasjon
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
-import kotlin.test.assertEquals
 
 class PensjonApiTest {
 
