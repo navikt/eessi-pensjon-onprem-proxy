@@ -9,7 +9,7 @@ buildscript {
         pensjonInformasjonVersion = '9.4.10'
         epeuxVersion = '1.1.76'
         epMetricsVersion = "0.4.29"
-        epSecurityStsVersion = '0.0.27'
+        epSecurityStsVersion = '0.1.0'
         epLoggingVersion = '1.0.24'
     }
 
