@@ -1,7 +1,6 @@
 package no.nav.eessi.pensjon.api
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import no.nav.eessi.pensjon.klienter.BehandleHendelseKlient
 import no.nav.eessi.pensjon.klienter.BestemSakKlient
 import no.nav.eessi.pensjon.klienter.BestemSakRequest
@@ -29,7 +28,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
                  private val behandleHendelseKlient: BehandleHendelseKlient,
                  private val bestemSakKlient: BestemSakKlient,
                  private val fagmodulKlient: FagmodulKlient,
-                 @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
+                 @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper.ForTest()) {
 
     private val logger: Logger by lazy { LoggerFactory.getLogger(PensjonApi::class.java) }
 

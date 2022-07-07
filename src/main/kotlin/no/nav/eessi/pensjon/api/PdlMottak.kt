@@ -1,6 +1,5 @@
 package no.nav.eessi.pensjon.api
 
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import no.nav.eessi.pensjon.klienter.PersonMottakKlient
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import no.nav.security.token.support.core.api.Protected
@@ -14,7 +13,7 @@ import javax.annotation.PostConstruct
 @RestController
 @Protected
 class PdlMottak(private val personMottak: PersonMottakKlient,
-                @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
+                @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper.ForTest()) {
 
     private lateinit var proxyPdlMottak: MetricsHelper.Metric
 

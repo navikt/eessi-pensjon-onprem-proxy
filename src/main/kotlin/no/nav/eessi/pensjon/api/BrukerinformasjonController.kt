@@ -1,6 +1,5 @@
 package no.nav.eessi.pensjon.api
 
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import no.nav.eessi.pensjon.services.ldap.BrukerInformasjon
 import no.nav.eessi.pensjon.services.ldap.BrukerInformasjonService
@@ -15,7 +14,7 @@ import javax.annotation.PostConstruct
 @RestController
 class BrukerinformasjonController(
     private val ldapService: BrukerInformasjonService,
-    @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) {
+    @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper.ForTest()) {
 
     private lateinit var proxyLDAP: MetricsHelper.Metric
 

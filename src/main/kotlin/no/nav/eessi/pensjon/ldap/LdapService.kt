@@ -1,6 +1,5 @@
 package no.nav.eessi.pensjon.services.ldap
 
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +13,7 @@ import javax.naming.directory.SearchResult
 @Profile("!integrationtest", "!test")
 @Service
 class LdapService(private val ldapKlient: LdapKlient,
-                  @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper(SimpleMeterRegistry())) : BrukerInformasjonService {
+                  @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper.ForTest()) : BrukerInformasjonService {
 
     // Pattern for NAV brukerident, f.eks Z123456
     private val IDENT_PATTERN = Pattern.compile("^[a-zA-Z][0-9]*")

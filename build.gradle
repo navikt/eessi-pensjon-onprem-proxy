@@ -2,13 +2,13 @@ buildscript {
 
     ext {
         kotlinVersion = '1.7.0'
-        springBootVersion = '2.6.6'
+        springBootVersion = '2.7.1'
         jacksonModuleKotlinVersion = '2.13.3'
         tokenSupportVersion = '2.0.14'
         logstashLogbackVersion = '7.0.1'
         pensjonInformasjonVersion = '9.4.10'
         epeuxVersion = '1.1.76'
-        epMetricsVersion = "0.4.29"
+        epMetricsVersion = "0.5.0"
         epSecurityStsVersion = '0.1.0'
         epLoggingVersion = '1.0.24'
     }
@@ -17,17 +17,13 @@ buildscript {
         mavenCentral()
     }
 
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-    }
-
 }
 
-//id "org.openrepose.gradle.plugins.jaxb" version "2.5.0"
-
 plugins {
+    id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.spring" version "$kotlinVersion"
+    id "org.jetbrains.kotlin.plugin.allopen" version "${kotlinVersion}"
+    id 'org.springframework.boot' version "${springBootVersion}"
     id "io.spring.dependency-management" version "1.0.11.RELEASE"
     id 'com.github.ben-manes.versions' version '0.42.0'
     id "se.patrikerdes.use-latest-versions" version "0.2.18"
@@ -38,10 +34,6 @@ plugins {
     id 'jacoco'
 }
 
-apply plugin: "org.jetbrains.kotlin.jvm"
-apply plugin: "org.jetbrains.kotlin.plugin.spring"
-apply plugin: "org.jetbrains.kotlin.plugin.allopen"
-apply plugin: "org.springframework.boot"
 
 assert JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17): "Java 17 or newer is required"
 
@@ -85,17 +77,21 @@ jar {
 
 dependencies {
 
-    // Spring-boot
-    implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-aop:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-cache:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-actuator:$springBootVersion")
+    // Spring-boot BOM-fil spesifiserer versjoner for Spring Boot-avhengigheter
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-actuator")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude module: 'junit'
         exclude module: "mockito-core"
         exclude module: 'junit-vintage-engine'
     }
+
+    // Spring Framework BOM-fil overstyrer så vi får siste patch-versjon av Spring Framework
+    implementation(platform("org.springframework:spring-framework-bom:5.3.21"))
 
     // Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonModuleKotlinVersion}")
@@ -132,9 +128,6 @@ dependencies {
     implementation("no.nav.eessi.pensjon:ep-eux:${epeuxVersion}"){
         exclude module: 'ep-metrics'
     }
-    //implementation(files("/Users/jens/git/ep-metrics/build/libs/ep-metrics-0.4.14.jar"))
-    //Micrometer
-    implementation("io.micrometer:micrometer-registry-prometheus:1.8.4")
 }
 
 
