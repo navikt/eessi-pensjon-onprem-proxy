@@ -71,10 +71,6 @@ jacocoTestReport {
 
 tasks.sonarqube.dependsOn tasks["jacocoTestReport"]
 
-jar {
-    archivesBaseName = 'eessi-pensjon-onprem-proxy'
-}
-
 dependencies {
 
     // Spring-boot BOM-fil spesifiserer versjoner for Spring Boot-avhengigheter
