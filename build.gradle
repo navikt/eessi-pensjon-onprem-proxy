@@ -4,7 +4,7 @@ buildscript {
         kotlinVersion = '1.7.10'
         springBootVersion = '2.7.1'
         jacksonModuleKotlinVersion = '2.13.3'
-        tokenSupportVersion = '2.0.14'
+        tokenSupportVersion = '2.1.2'
         logstashLogbackVersion = '7.2'
         pensjonInformasjonVersion = '9.4.10'
         epeuxVersion = '1.2.0'
