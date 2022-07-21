@@ -1,4 +1,4 @@
-package no.nav.eessi.pensjon.services.ldap
+package no.nav.eessi.pensjon.ldap
 
 import org.slf4j.LoggerFactory
 import java.util.*

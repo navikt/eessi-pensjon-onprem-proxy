@@ -1,9 +1,9 @@
-package no.nav.eessi.pensjon.services.ldap
+package no.nav.eessi.pensjon.ldap
 
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
-import java.util.regex.*
+import java.util.regex.Pattern
 import javax.naming.NamingException
 
 @Profile("integrationtest", "test")

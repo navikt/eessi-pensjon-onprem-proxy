@@ -1,11 +1,11 @@
-package no.nav.eessi.pensjon.services.ldap
+package no.nav.eessi.pensjon.ldap
 
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
-import java.util.regex.*
+import java.util.regex.Pattern
 import javax.annotation.PostConstruct
 import javax.naming.directory.Attribute
 import javax.naming.directory.SearchResult
@@ -13,7 +13,8 @@ import javax.naming.directory.SearchResult
 @Profile("!integrationtest", "!test")
 @Service
 class LdapService(private val ldapKlient: LdapKlient,
-                  @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper.ForTest()) : BrukerInformasjonService {
+                  @Autowired(required = false) private val metricsHelper: MetricsHelper = MetricsHelper.ForTest()) :
+    BrukerInformasjonService {
 
     // Pattern for NAV brukerident, f.eks Z123456
     private val IDENT_PATTERN = Pattern.compile("^[a-zA-Z][0-9]*")

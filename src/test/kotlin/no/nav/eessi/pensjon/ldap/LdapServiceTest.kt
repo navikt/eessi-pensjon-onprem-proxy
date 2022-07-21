@@ -1,4 +1,4 @@
-package no.nav.eessi.pensjon.services.ldap
+package no.nav.eessi.pensjon.ldap
 
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
