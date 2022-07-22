@@ -55,14 +55,14 @@ class LdapServiceMock(): BrukerInformasjonService {
 
 
         // Alderspensjon - Saksbehandler
-        if(ident.substring(0,1) == "A") {
+        if (ident.substring(0, 1) == "A") {
             rolleListe.add("0000-GA-PENSJON_SAKSBEHANDLER")
             rolleListe.add("0000-ga-eessi-basis")
             rolleListe.add("0000-ga-eessi-clerk-pensjon")
         }
 
         // Uføre - Saksbehandler
-        if(ident.substring(0,1) == "U") {
+        if (ident.substring(0, 1) == "U") {
             rolleListe.add("0000-GA-PENSJON_SAKSBEHANDLER")
             rolleListe.add("0000-GA-pensjon_ufore")
             rolleListe.add("0000-ga-eessi-basis")
@@ -70,32 +70,30 @@ class LdapServiceMock(): BrukerInformasjonService {
         }
 
         // Utland
-        if(ident.substring(1,2) == "2") {
+        if (ident.substring(1, 2) == "2") {
             rolleListe.add("0000-GA-Pensjon_Utland")
         }
 
         // Nav-ansatte
-        if(ident.substring(2,3) == "3") {
+        if (ident.substring(2, 3) == "3") {
             rolleListe.add("0000-GA-GOSYS_UTVIDET")
             rolleListe.add("0000-GA-Pensjon_UTVIDET")
         }
 
         // Strengt fortrolig adresse
-        if(ident.substring(5,6) == "6") {
+        if (ident.substring(5, 6) == "6") {
             rolleListe.add("0000-GA-GOSYS_KODE6")
             rolleListe.add("0000-GA-Pensjon_KODE6")
         }
 
         // Fortrolig adresse
-        if(ident.substring(6,7) == "7") {
+        if (ident.substring(6, 7) == "7") {
             rolleListe.add("0000-GA-GOSYS_KODE7")
             rolleListe.add("0000-GA-PENSJON_KODE7")
         }
 
         listOf(rolleListe)
-        val brukerInformasjon =
-            BrukerInformasjon(ident, rolleListe)
 
-        return brukerInformasjon
+        return BrukerInformasjon(ident, rolleListe)
     }
 }
