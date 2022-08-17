@@ -42,10 +42,12 @@ class PensjonApiTest {
         val aktoer = "1231231231"
         val xmlString = javaClass.getResource("/pensjon/Vedtak-AlderUtland.xml")!!.readText()
 
+        @Suppress("DEPRECATION")
         every { pensjonsinformasjonClient.hentAltPaaAktoerId(any(), any()) } returns xmlString
 
         val result = api.hentSaker(req, aktoer)
 
+        @Suppress("DEPRECATION")
         verify (exactly = 1) { pensjonsinformasjonClient.hentAltPaaAktoerId(any(), any()) }
         assertEquals(xmlString, result)
 

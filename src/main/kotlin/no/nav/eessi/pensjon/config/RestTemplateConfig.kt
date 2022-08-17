@@ -70,7 +70,7 @@ class RestTemplateConfig(
     fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
 
     @Bean
-    fun kodeRestTemplate() = simpleRestTemplate(kodeverkUrl)
+    fun kodeRestTemplate() = simpleRestTemplate()
 
     @Bean
     fun bestemSakOidcRestTemplate() = buildRestTemplate(bestemSakUrl)
@@ -101,7 +101,7 @@ class RestTemplateConfig(
 
     }
 
-    private fun simpleRestTemplate(url: String): RestTemplate {
+    private fun simpleRestTemplate(): RestTemplate {
         return RestTemplateBuilder()
             .rootUri(kodeverkUrl)
             .errorHandler(DefaultResponseErrorHandler())

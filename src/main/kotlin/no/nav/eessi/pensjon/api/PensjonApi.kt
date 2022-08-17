@@ -53,6 +53,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
         return proxyPensjonSak.measure {
+            @Suppress("DEPRECATION")
             pensjonsinformasjonClient.hentAltPaaAktoerId(aktorid, req)
         }
     }
