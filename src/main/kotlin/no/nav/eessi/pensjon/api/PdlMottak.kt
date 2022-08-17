@@ -24,7 +24,7 @@ class PdlMottak(private val personMottak: PersonMottakKlient,
 
 
     @PostMapping("/api/v1/endringer")
-    fun hentSaker(@RequestBody personopplysningRequest : String, @RequestHeader ("Nav-Call-Id") navId: String ): Boolean {
+    fun endringer(@RequestBody personopplysningRequest : String, @RequestHeader ("Nav-Call-Id") navId: String ): Boolean {
         return proxyPdlMottak.measure {
             personMottak.opprettPersonopplysning(personopplysningRequest, navId)
         }
