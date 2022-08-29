@@ -1,4 +1,4 @@
-package no.nav.eessi.pensjon.klienter
+package no.nav.eessi.pensjon.kodeverk
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -16,10 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
 
 @Component
-class KodeverkKlient(private val kodeRestTemplate: RestTemplate,
+class KodeverkClient(private val kodeRestTemplate: RestTemplate,
                      @Value("\${NAIS_APP_NAME}") private val appName: String) {
 
-    private val logger = LoggerFactory.getLogger(KodeverkKlient::class.java)
+    private val logger = LoggerFactory.getLogger(KodeverkClient::class.java)
 
     private fun doRequest(builder: UriComponents) : String {
         try {
@@ -32,11 +32,14 @@ class KodeverkKlient(private val kodeRestTemplate: RestTemplate,
 
             val response = kodeRestTemplate.exchange(
                     builder.toUriString(),
-                    HttpMethod.GET,
+                HttpMethod.GET,
                     requestEntity,
                     String::class.java)
 
-            return response.body ?: throw ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Feil ved konvetering av jsondata fra kodeverk")
+            return response.body ?: throw ResponseStatusException(
+                HttpStatus.UNPROCESSABLE_ENTITY,
+                "Feil ved konvetering av jsondata fra kodeverk"
+            )
 
         } catch (ce: HttpClientErrorException) {
             logger.error(ce.message, ce)
