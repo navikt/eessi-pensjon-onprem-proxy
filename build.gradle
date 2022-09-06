@@ -3,7 +3,7 @@ buildscript {
     ext {
         kotlinVersion = '1.7.10'
         springBootVersion = '2.7.3'
-        jacksonModuleKotlinVersion = '2.13.3'
+        jacksonModuleKotlinVersion = '2.13.4'
         tokenSupportVersion = '2.1.4'
         logstashLogbackVersion = '7.2'
         pensjonInformasjonVersion = '9.4.10'
