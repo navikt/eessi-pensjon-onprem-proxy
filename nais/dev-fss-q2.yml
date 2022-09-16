@@ -60,8 +60,6 @@ spec:
       value: https://pensjon-pen-q2.nais.preprod.local/pen/api/behandlehendelse/utland/v1/
     - name: BESTEMSAK_URL
       value: https://pensjon-pen-q2.nais.preprod.local/pen/api/bestemsak/v1
-    - name: PDL_PERSON_MOTTAK_URL
-      value: https://person-mottak.dev.intern.nav.no/
     - name: LDAP_USER_BASEDN
       value: ou=NAV,ou=BusinessUnits,dc=preprod,dc=local
     - name: LDAP_SERVICEUSER_BASEDN

@@ -57,9 +57,6 @@ class RestTemplateConfig(
     @Value("\${srvpdlpusername}")
     lateinit var srvpdlpusername: String
 
-    @Value("\${PDL_PERSON_MOTTAK_URL}")
-    lateinit var pdlMottakUrl: String
-
     @Value("\${kodeverk.rest-api.url}")
     private lateinit var kodeverkUrl: String
 
@@ -77,9 +74,6 @@ class RestTemplateConfig(
 
     @Bean
     fun pensjonInformasjonRestTemplate() = restTemplate(peninfourl, CustomUsernameToOidcInterceptor(srvFagmodulUsername, srvFagmodulPassword, securityTokenExchangeService))
-
-    @Bean
-    fun personMottakRestTemplate() = restTemplate(pdlMottakUrl, CustomUsernameToOidcInterceptor(srvpdlpusername, srvpdlppassword, securityTokenExchangeService))
 
     @Bean
     fun behandleHendelseRestTemplate() = restTemplate(penBeandleHendelseurl, CustomUsernameToOidcInterceptor(srvFagmodulUsername, srvFagmodulPassword, securityTokenExchangeService))
