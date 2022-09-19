@@ -1,22 +1,21 @@
-name: Deploy PROD
+name: Deploy PROD (FSS)
 on:
   repository_dispatch:
     types: [deploy-prod]
+
 jobs:
-  tag_deploy_q1:
-    name: 'Deploy til PROD'
+  deploy_prod:
+    name: 'Deploy til PROD (FSS)'
     runs-on: ubuntu-latest
     steps:
-      # GET version
-      - name: 'Get the version'
-        uses: actions/checkout@v2
+      - name: 'Pull repo'
+        uses: actions/checkout@v3
 
-      # Show IMAGE from Q2 deploy
       - name: 'Vise image'
         run: |
           echo "image-tag: ${{ github.event.client_payload.image }}"
 
-      - name: 'NAIS-deploy to PROD'
+      - name: 'NAIS-deploy to PROD (FSS)'
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
