@@ -1,5 +1,7 @@
 FROM navikt/java:17-appdynamics
 
+COPY init-scripts/ep-jvm-tuning.sh /init-scripts/
+
 COPY build/libs/eessi-pensjon-onprem-proxy.jar /app/app.jar
 COPY nais/export-vault-secrets.sh /init-scripts/
 

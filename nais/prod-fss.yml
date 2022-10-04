@@ -99,10 +99,10 @@ spec:
   resources:
     limits:
       cpu: "4"
-      memory: 8096Mi
+      memory: 1Gi
     requests:
       cpu: 400m
-      memory: 4024Mi
+      memory: 1Gi
   vault:
     enabled: true
     paths:
