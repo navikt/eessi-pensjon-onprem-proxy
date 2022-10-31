@@ -60,8 +60,6 @@ spec:
       value: https://pensjon-pen.nais.adeo.no/pen/api/behandlehendelse/utland/v1/
     - name: BESTEMSAK_URL
       value: https://pensjon-pen.nais.adeo.no/pen/api/bestemsak/v1
-    - name: PDL_PERSON_MOTTAK_URL
-      value: https://person-mottak.nais.adeo.no
     - name: LDAP_DOMAIN
       value: ADEO.NO
     - name: LDAP_BASEDN
