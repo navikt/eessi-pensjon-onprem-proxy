@@ -1,4 +1,4 @@
-FROM navikt/java:17-appdynamics
+FROM ghcr.io/navikt/baseimages/temurin:17-appdynamics
 
 COPY init-scripts/ep-jvm-tuning.sh /init-scripts/
 
