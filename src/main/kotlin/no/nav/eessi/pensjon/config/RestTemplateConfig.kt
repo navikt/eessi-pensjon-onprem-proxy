@@ -1,7 +1,9 @@
 package no.nav.eessi.pensjon.config
 
+import io.micrometer.core.instrument.MeterRegistry
 import no.nav.eessi.pensjon.logging.RequestIdHeaderInterceptor
 import no.nav.eessi.pensjon.logging.RequestResponseLoggerInterceptor
+import no.nav.eessi.pensjon.metrics.RequestCountInterceptor
 import no.nav.eessi.pensjon.security.sts.STSService
 import no.nav.eessi.pensjon.security.sts.SecurityTokenResponse
 import no.nav.eessi.pensjon.security.sts.UsernameToOidcInterceptor
@@ -30,8 +32,9 @@ import java.time.Duration
 class RestTemplateConfig(
     private val clientConfigurationProperties: ClientConfigurationProperties,
     private val oAuth2AccessTokenService: OAuth2AccessTokenService,
-    private val securityTokenExchangeService: STSService
-    ) {
+    private val securityTokenExchangeService: STSService,
+    private val meterRegistry: MeterRegistry
+) {
 
     @Value("\${NORG2_URL}")
     lateinit var norg2Url: String
@@ -81,6 +84,7 @@ class RestTemplateConfig(
             .errorHandler(DefaultResponseErrorHandler())
             .additionalInterceptors(
                 RequestIdHeaderInterceptor(),
+                RequestCountInterceptor(meterRegistry),
                 RequestResponseLoggerInterceptor(),
                 UsernameToOidcInterceptor(securityTokenExchangeService))
             .build().apply {
