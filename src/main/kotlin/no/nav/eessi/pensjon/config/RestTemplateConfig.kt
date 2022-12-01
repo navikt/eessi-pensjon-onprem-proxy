@@ -101,6 +101,8 @@ class RestTemplateConfig(
             .errorHandler(DefaultResponseErrorHandler())
             .additionalInterceptors(
                 RequestIdHeaderInterceptor(),
+                IOExceptionRetryInterceptor(),
+                RequestCountInterceptor(meterRegistry),
                 RequestResponseLoggerInterceptor()
             )
             .build().apply {
@@ -116,6 +118,8 @@ class RestTemplateConfig(
             .setConnectTimeout(Duration.ofSeconds(120))
             .additionalInterceptors(
                 RequestIdHeaderInterceptor(),
+                IOExceptionRetryInterceptor(),
+                RequestCountInterceptor(meterRegistry),
                 RequestResponseLoggerInterceptor(),
                 tokenIntercetor
             )
@@ -183,6 +187,8 @@ class RestTemplateConfig(
             return RestTemplateBuilder()
                 .additionalInterceptors(
                     RequestIdHeaderInterceptor(),
+                    IOExceptionRetryInterceptor(),
+                    RequestCountInterceptor(meterRegistry),
                     BasicAuthenticationInterceptor(username, password)
                 ).build()
         }
