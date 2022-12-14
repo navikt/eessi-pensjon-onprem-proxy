@@ -45,6 +45,12 @@ spec:
         - application: pensjon-pselv-q2
           namespace: teampensjon
           cluster: dev-fss
+        - application: pensjon-pselv-q1
+          namespace: teampensjon
+          cluster: dev-fss
+        - application: pensjon-pselv-q2
+          namespace: teampensjon
+          cluster: dev-fss
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
