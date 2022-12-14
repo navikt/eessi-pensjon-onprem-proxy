@@ -36,7 +36,16 @@ spec:
         - application: pensjon-pen-q2
           namespace: teampensjon
           cluster: dev-fss
+        - application: pensjon-pselv-q0
+          namespace: teampensjon
+          cluster: dev-fss
+        - application: pensjon-pselv-q1
+          namespace: teampensjon
+          cluster: dev-fss
         - application: pensjon-pselv-q2
+          namespace: teampensjon
+          cluster: dev-fss
+        - application: pensjon-pselv-q4
           namespace: teampensjon
           cluster: dev-fss
   webproxy: true
