@@ -8,7 +8,7 @@ buildscript {
         epeuxVersion = '1.3.40'
         epMetricsVersion = "1.0.4"
         epSecurityStsVersion = '0.1.51'
-        epLoggingVersion = '1.1.8'
+        epLoggingVersion = '1.1.11'
     }
 }
 
