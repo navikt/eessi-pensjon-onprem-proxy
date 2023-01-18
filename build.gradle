@@ -6,7 +6,7 @@ buildscript {
         logstashLogbackVersion = '7.2'
         pensjonInformasjonVersion = '9.4.10'
         epMetricsVersion = "1.0.10"
-        epSecurityStsVersion = '0.1.56'
+        epSecurityStsVersion = '0.1.60'
         epLoggingVersion = '1.1.13'
     }
 }
