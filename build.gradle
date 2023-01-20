@@ -4,10 +4,6 @@ buildscript {
         jacksonModuleKotlinVersion = '2.14.1'
         tokenSupportVersion = '2.1.8'
         logstashLogbackVersion = '7.2'
-        pensjonInformasjonVersion = '9.4.10'
-        epMetricsVersion = "1.0.10"
-        epSecurityStsVersion = '0.1.60'
-        epLoggingVersion = '1.1.13'
     }
 }
 
@@ -67,12 +63,12 @@ dependencies {
     implementation("no.nav.security:token-validation-test-support:2.0.5")
     testImplementation("org.pac4j:spring-webmvc-pac4j:7.0.0")
 
-    implementation("no.nav.eessi.pensjon:ep-metrics:$epMetricsVersion")
-    implementation("no.nav.eessi.pensjon:ep-logging:${epLoggingVersion}")
-    implementation("no.nav.eessi.pensjon:ep-security-sts:${epSecurityStsVersion}") {
+    implementation("no.nav.eessi.pensjon:ep-metrics:1.0.10")
+    implementation("no.nav.eessi.pensjon:ep-logging:1.1.13")
+    implementation("no.nav.eessi.pensjon:ep-security-sts:0.1.60") {
         exclude module: 'ep-metrics'
     }
-    implementation("no.nav.eessi.pensjon:ep-eux:1.4.8"){
+    implementation("no.nav.eessi.pensjon:ep-eux:1.4.14"){
         exclude module: 'ep-metrics'
     }
 }

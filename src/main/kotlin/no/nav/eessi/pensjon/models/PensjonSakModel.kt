@@ -2,11 +2,13 @@ package no.nav.eessi.pensjon.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import no.nav.eessi.pensjon.eux.model.buc.SakStatus
+import no.nav.eessi.pensjon.eux.model.buc.SakType
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class SakInformasjon(
     val sakId: String?,
-    val sakType: Saktype,
+    val sakType: SakType,
     val sakStatus: SakStatus,
     val saksbehandlendeEnhetId: String = "",
     val nyopprettet: Boolean = false,
@@ -14,12 +16,3 @@ data class SakInformasjon(
     @JsonIgnore
         val tilknyttedeSaker: List<SakInformasjon> = emptyList()
 )
-
-enum class SakStatus {
-    OPPRETTET,
-    TIL_BEHANDLING,
-    AVSLUTTET,
-    LOPENDE,
-    OPPHOR,
-    UKJENT
-}

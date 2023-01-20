@@ -1,6 +1,7 @@
 package no.nav.eessi.pensjon.models
 
 import no.nav.eessi.pensjon.eux.model.SedType
+import no.nav.eessi.pensjon.eux.model.buc.SakType
 import java.time.LocalDate
 
 data class IdentifisertPerson(
@@ -21,7 +22,7 @@ data class IdentifisertPerson(
 data class SEDPersonRelasjon(
     val fnr: String?,
     val relasjon: Relasjon,
-    val saktype: Saktype? = null,
+    val saktype: SakType? = null,
     val sedType: SedType? = null,
     val fdato: LocalDate? = null,
     val rinaDocumentId: String
