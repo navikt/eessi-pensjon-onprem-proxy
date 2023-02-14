@@ -5,18 +5,15 @@ on:
 
 jobs:
   deploy_manuelt:
-    name: 'Deploy manuelt'
+    name: 'Build, push, and deploy'
     runs-on: ubuntu-latest
     steps:
       - name: 'Pull repo'
         uses: actions/checkout@v3
-
-      - name: 'Lager variable'
         run: |
           echo "versjon: ${{ github.event.client_payload.slash_command.arg1 }}"
           echo "cluster: ${{ github.event.client_payload.slash_command.arg2 }}"
-          echo "resource: ${{ github.event.client_payload.slash_command.arg2 }}-${{ github.event.client_payload.slash_command.arg3 }}.yml"
-          echo "vars: ${{ github.event.client_payload.slash_command.arg2 }}-${{ github.event.client_payload.slash_command.arg3 }}.json"
+          echo "resource: ${{ github.event.client_payload.slash_command.arg2 }}.yml"
           echo "image: ghcr.io/${{ github.repository }}/eessi-pensjon-onprem-proxy:${{ github.event.client_payload.slash_command.arg1 }}"
 
       - name: 'Deploy to NAIS'
@@ -24,5 +21,5 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ github.event.client_payload.slash_command.arg2 }}
-          RESOURCE: nais/${{ github.event.client_payload.slash_command.arg2 }}-${{ github.event.client_payload.slash_command.arg3 }}.yml
+          RESOURCE: nais/${{ github.event.client_payload.slash_command.arg2 }}.yml
           IMAGE: ghcr.io/${{ github.repository }}/eessi-pensjon-onprem-proxy:${{ github.event.client_payload.slash_command.arg1 }}
