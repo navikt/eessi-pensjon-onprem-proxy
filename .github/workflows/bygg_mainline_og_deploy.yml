@@ -3,7 +3,6 @@ name: Bygg, deploy DEV, publiser, tag og dispatch deploy til PROD
 on:
   push:
     branches:
-      - master
       - main
 
 jobs:
