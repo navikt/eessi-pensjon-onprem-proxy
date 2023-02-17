@@ -55,8 +55,6 @@ spec:
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: test
-    - name: OPENIDCONNECT_URL
-      value: https://isso-q.adeo.no:443/isso
     - name: SECURITY_TOKEN_SERVICE_OPENID_CONFIGURATION_URL
       value: https://security-token-service.nais.preprod.local/rest/v1/sts/.well-known/openid-configuration
     - name: SECURITYTOKENSERVICE_URL
