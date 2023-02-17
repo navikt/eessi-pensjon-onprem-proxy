@@ -1,12 +1,12 @@
 package no.nav.eessi.pensjon.api
 
+import jakarta.annotation.PostConstruct
 import no.nav.eessi.pensjon.klienter.Norg2Klient
 import no.nav.eessi.pensjon.kodeverk.KodeverkClient
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import javax.annotation.PostConstruct
 
 @RestController
 @Protected

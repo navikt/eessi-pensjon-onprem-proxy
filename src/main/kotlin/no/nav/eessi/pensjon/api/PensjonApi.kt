@@ -1,6 +1,7 @@
 package no.nav.eessi.pensjon.api
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import jakarta.annotation.PostConstruct
 import no.nav.eessi.pensjon.klienter.BehandleHendelseKlient
 import no.nav.eessi.pensjon.klienter.BestemSakKlient
 import no.nav.eessi.pensjon.klienter.BestemSakRequest
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RestController
-import javax.annotation.PostConstruct
 
 @RestController
 //@Protected

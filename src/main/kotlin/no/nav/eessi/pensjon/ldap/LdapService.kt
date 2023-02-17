@@ -1,12 +1,12 @@
 package no.nav.eessi.pensjon.ldap
 
+import jakarta.annotation.PostConstruct
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import java.util.regex.Pattern
-import javax.annotation.PostConstruct
 import javax.naming.directory.Attribute
 import javax.naming.directory.SearchResult
 
