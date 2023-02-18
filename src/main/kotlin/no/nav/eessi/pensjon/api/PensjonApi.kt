@@ -85,7 +85,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     }
 
     @Protected
-    @PostMapping("/pen/api/bestemsak/v1")
+    @PostMapping("/pen/api/bestemsak/v1/")
     fun bestemSak(@RequestBody req: BestemSakRequest): BestemSakResponse? {
         return proxyBestemsak.measure {
             bestemSakKlient.kallBestemSak(req)
