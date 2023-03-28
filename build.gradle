@@ -65,7 +65,7 @@ dependencies {
     testImplementation("org.pac4j:spring-webmvc-pac4j:7.0.0")
 
     implementation("no.nav.eessi.pensjon:ep-metrics:2.0.10")
-    implementation("no.nav.eessi.pensjon:ep-logging:2.0.8")
+    implementation("no.nav.eessi.pensjon:ep-logging:2.1.1")
     implementation("no.nav.eessi.pensjon:ep-security-sts:1.0.16") {
         exclude module: 'ep-metrics'
     }
