@@ -69,7 +69,7 @@ dependencies {
     implementation("no.nav.eessi.pensjon:ep-security-sts:1.0.16") {
         exclude module: 'ep-metrics'
     }
-    implementation("no.nav.eessi.pensjon:ep-eux:2.1.14"){
+    implementation("no.nav.eessi.pensjon:ep-eux:2.1.17"){
         exclude module: 'ep-metrics'
     }
 }
