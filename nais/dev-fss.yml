@@ -54,6 +54,12 @@ spec:
         - application: pensjon-pselv-q2
           namespace: teampensjon
           cluster: dev-fss
+    outbound:
+      external:
+        - host: pensjon-pen-q2.nais.preprod.local
+        - host: app-q4.adeo.no
+        - host: kodeverk.nais.adeo.no
+
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
