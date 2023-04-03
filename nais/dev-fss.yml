@@ -59,9 +59,6 @@ spec:
         - host: pensjon-pen-q2.nais.preprod.local
         - host: app-q4.adeo.no
         - host: kodeverk.nais.adeo.no
-        - host: sts-q2.preprod.local
-        - host: security-token-service.nais.preprod.local
-        - host: eessi-pensjon-fagmodul-q2.dev.intern.nav.no
 
   webproxy: true
   env:
