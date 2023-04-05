@@ -22,10 +22,6 @@ NORG2_URL: 'http://example.com'
 PENSJONSINFORMASJON_URL: 'http://example.com'
 PENSJON_BEHANDLEHENDELSE_URL: "http://example.com"
 BESTEMSAK_URL: "http://example.com"
-kodeverk:
-  rest-api:
-    url: "http://example.com"
-
 
 securityTokenService:
   discoveryUrl: 'http://example.com'

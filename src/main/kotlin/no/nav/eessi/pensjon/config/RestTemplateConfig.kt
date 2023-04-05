@@ -55,17 +55,11 @@ class RestTemplateConfig(
     @Value("\${srvfagmodulusername}")
     lateinit var srvFagmodulUsername: String
 
-    @Value("\${kodeverk.rest-api.url}")
-    private lateinit var kodeverkUrl: String
-
     @Value("\${FAGMODUL_URL}")
     lateinit var fagmodulURL: String
 
     @Bean
     fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
-
-    @Bean
-    fun kodeRestTemplate() = simpleRestTemplate()
 
     @Bean
     fun bestemSakOidcRestTemplate() = buildRestTemplate(bestemSakUrl)
@@ -93,21 +87,6 @@ class RestTemplateConfig(
                 requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory().apply { setOutputStreaming(false)})
             }
 
-    }
-
-    private fun simpleRestTemplate(): RestTemplate {
-        return RestTemplateBuilder()
-            .rootUri(kodeverkUrl)
-            .errorHandler(DefaultResponseErrorHandler())
-            .additionalInterceptors(
-                RequestIdHeaderInterceptor(),
-                IOExceptionRetryInterceptor(),
-                RequestCountInterceptor(meterRegistry),
-                RequestResponseLoggerInterceptor()
-            )
-            .build().apply {
-                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-            }
     }
 
     private fun restTemplate(url: String, tokenIntercetor: ClientHttpRequestInterceptor?) : RestTemplate {
