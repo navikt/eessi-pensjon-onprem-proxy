@@ -42,6 +42,11 @@ spec:
         - application: pensjon-pselv
           namespace: pensjondeployer
           cluster: prod-fss
+    outbound:
+      external:
+        - host: pensjon-pen.nais.adeo.no
+        - host: app.adeo.no
+
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
