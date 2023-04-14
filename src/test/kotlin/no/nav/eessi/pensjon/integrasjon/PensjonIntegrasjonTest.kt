@@ -45,9 +45,6 @@ class PensjonIntegrasjonTest {
     @MockkBean(name = "bestemSakOidcRestTemplate")
     private lateinit var bestemSakOidcRestTemplate: RestTemplate
 
-    @MockkBean(name = "norg2OidcRestTemplate")
-    private lateinit var norg2OidcRestTemplate: RestTemplate
-
     @MockkBean
     private lateinit var clientConfigurationProperties: ClientConfigurationProperties
 

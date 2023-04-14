@@ -37,9 +37,6 @@ class RestTemplateConfig(
     private val meterRegistry: MeterRegistry
 ) {
 
-    @Value("\${NORG2_URL}")
-    lateinit var norg2Url: String
-
     @Value("\${PENSJONSINFORMASJON_URL}")
     lateinit var peninfourl: String
 
@@ -57,9 +54,6 @@ class RestTemplateConfig(
 
     @Value("\${FAGMODUL_URL}")
     lateinit var fagmodulURL: String
-
-    @Bean
-    fun norg2OidcRestTemplate() = buildRestTemplate(norg2Url)
 
     @Bean
     fun bestemSakOidcRestTemplate() = buildRestTemplate(bestemSakUrl)
