@@ -2,7 +2,7 @@ buildscript {
     ext {
         springBootVersion = '3.0.5'
         jacksonModuleKotlinVersion = '2.14.2'
-        tokenSupportVersion = '3.0.9'
+        tokenSupportVersion = '3.0.10'
     }
 }
 
@@ -33,7 +33,7 @@ dependencies {
     }
 
     // Spring Framework BOM-fil overstyrer så vi får siste patch-versjon av Spring Framework
-    implementation(platform("org.springframework:spring-framework-bom:6.0.7"))
+    implementation(platform("org.springframework:spring-framework-bom:6.0.8"))
 
     // Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonModuleKotlinVersion}")
@@ -46,7 +46,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
-    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("io.mockk:mockk:1.13.5")
 
     // Forenklere mocking av beans, benyttes som mockito mockbean
     testImplementation("com.ninja-squad:springmockk:4.0.2")
@@ -65,11 +65,11 @@ dependencies {
     testImplementation("org.pac4j:spring-webmvc-pac4j:7.0.0")
 
     implementation("no.nav.eessi.pensjon:ep-metrics:2.0.11")
-    implementation("no.nav.eessi.pensjon:ep-logging:2.1.3")
-    implementation("no.nav.eessi.pensjon:ep-security-sts:1.0.20") {
+    implementation("no.nav.eessi.pensjon:ep-logging:2.1.4")
+    implementation("no.nav.eessi.pensjon:ep-security-sts:1.0.23") {
         exclude module: 'ep-metrics'
     }
-    implementation("no.nav.eessi.pensjon:ep-eux:2.1.17"){
+    implementation("no.nav.eessi.pensjon:ep-eux:2.1.18"){
         exclude module: 'ep-metrics'
     }
 }

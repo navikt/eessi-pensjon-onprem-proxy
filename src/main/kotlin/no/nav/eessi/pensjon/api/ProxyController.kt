@@ -25,5 +25,4 @@ class ProxyController(private val norg2Klient: Norg2Klient,
             norg2Klient.hentArbeidsfordelingEnheter(req)
         }
     }
-
 }
