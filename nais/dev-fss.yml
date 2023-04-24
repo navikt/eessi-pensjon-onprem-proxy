@@ -69,7 +69,7 @@ spec:
     - name: AZURE_APP_FAGMODUL_CLIENT_ID
       value: dev-gcp.eessipensjon.eessi-pensjon-fagmodul-q2
     - name: FAGMODUL_URL
-      value: https://eessi-pensjon-fagmodul-q2.dev.intern.nav.no
+      value: https://eessi-pensjon-fagmodul-q2.intern.dev.nav.no
     - name: PENSJONSINFORMASJON_URL
       value: https://pensjon-pen-q2.nais.preprod.local/pen/api/pensjonsinformasjon/v1
     - name: PENSJON_BEHANDLEHENDELSE_URL
