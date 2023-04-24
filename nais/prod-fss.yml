@@ -45,7 +45,6 @@ spec:
     outbound:
       external:
         - host: pensjon-pen.nais.adeo.no
-        - host: app.adeo.no
 
   webproxy: true
   env:
@@ -59,8 +58,6 @@ spec:
       value: prod-gcp.eessipensjon.eessi-pensjon-fagmodul
     - name: FAGMODUL_URL
       value: https://eessi-pensjon-fagmodul.intern.nav.no
-    - name: NORG2_URL
-      value: https://app.adeo.no/norg2
     - name: PENSJONSINFORMASJON_URL
       value: https://pensjon-pen.nais.adeo.no/pen/api/pensjonsinformasjon/v1
     - name: PENSJON_BEHANDLEHENDELSE_URL

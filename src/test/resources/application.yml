@@ -18,7 +18,6 @@ srvpdlppassword: "password"
 srvpdlpusername: "bruker"
 
 FAGMODUL_URL: 'http://example.com:8090'
-NORG2_URL: 'http://example.com'
 PENSJONSINFORMASJON_URL: 'http://example.com'
 PENSJON_BEHANDLEHENDELSE_URL: "http://example.com"
 BESTEMSAK_URL: "http://example.com"
