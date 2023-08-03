@@ -18,9 +18,6 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: eessi-pensjon-pdl-produsent-q2
-          namespace: eessipensjon
-          cluster: dev-gcp
         - application: eessi-pensjon-saksbehandling-api-q2
           namespace: eessipensjon
           cluster: dev-gcp

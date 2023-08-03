@@ -18,9 +18,6 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: eessi-pensjon-pdl-produsent
-          namespace: eessipensjon
-          cluster: prod-gcp
         - application: eessi-pensjon-journalforing
           namespace: eessipensjon
           cluster: prod-gcp
