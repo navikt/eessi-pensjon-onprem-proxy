@@ -39,6 +39,9 @@ spec:
         - application: pensjon-pselv
           namespace: pensjondeployer
           cluster: prod-fss
+        - application: pensjon-pselv-veileder
+          namespace: pensjondeployer
+          cluster: prod-gcp
     outbound:
       external:
         - host: pensjon-pen.nais.adeo.no
