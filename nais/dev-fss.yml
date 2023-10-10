@@ -36,21 +36,27 @@ spec:
         - application: pensjon-pen-q2
           namespace: teampensjon
           cluster: dev-fss
+        - application: pensjon-pen-q2
+          namespace: pensjon-q2
+          cluster: dev-fss
         - application: pensjon-pselv-q0
           namespace: teampensjon
           cluster: dev-fss
+        - application: pensjon-pselv-veileder-q0
+          namespace: pensjon-q0
+          cluster: dev-gcp
         - application: pensjon-pselv-q1
           namespace: teampensjon
           cluster: dev-fss
+        - application: pensjon-pselv-veileder-q1
+          namespace: pensjon-q1
+          cluster: dev-gcp
         - application: pensjon-pselv-q2
           namespace: teampensjon
           cluster: dev-fss
-        - application: pensjon-pselv-q1
-          namespace: teampensjon
-          cluster: dev-fss
-        - application: pensjon-pselv-q2
-          namespace: teampensjon
-          cluster: dev-fss
+        - application: pensjon-pselv-veileder-q2
+          namespace: pensjon-q2
+          cluster: dev-gcp
     outbound:
       external:
         - host: pensjon-pen-q2.nais.preprod.local
