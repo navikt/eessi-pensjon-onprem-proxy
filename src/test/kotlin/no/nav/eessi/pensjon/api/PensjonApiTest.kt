@@ -10,7 +10,7 @@ import no.nav.eessi.pensjon.klienter.BestemSakRequest
 import no.nav.eessi.pensjon.klienter.BestemSakResponse
 import no.nav.eessi.pensjon.klienter.FagmodulKlient
 import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
-import no.nav.eessi.pensjon.models.SakInformasjon
+import no.nav.eessi.pensjon.oppgaverouting.SakInformasjon
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
