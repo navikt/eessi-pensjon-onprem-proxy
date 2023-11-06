@@ -1,6 +1,5 @@
 package no.nav.eessi.pensjon.ldap
 
-import jakarta.annotation.PostConstruct
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,8 +21,7 @@ class LdapService(private val ldapKlient: LdapKlient,
 
     private lateinit var hentBrukerInformasjon: MetricsHelper.Metric
 
-    @PostConstruct
-    fun initMetrics() {
+    init {
         hentBrukerInformasjon = metricsHelper.init("hentBrukerInformasjon")
     }
 

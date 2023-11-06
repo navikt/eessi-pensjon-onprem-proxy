@@ -1,6 +1,5 @@
 package no.nav.eessi.pensjon.api
 
-import jakarta.annotation.PostConstruct
 import no.nav.eessi.pensjon.ldap.BrukerInformasjon
 import no.nav.eessi.pensjon.ldap.BrukerInformasjonService
 import no.nav.eessi.pensjon.metrics.MetricsHelper
@@ -21,8 +20,7 @@ class BrukerinformasjonController(
 
     private lateinit var proxyLDAP: MetricsHelper.Metric
 
-    @PostConstruct
-    fun initMetrics() {
+    init {
       proxyLDAP = metricsHelper.init("proxyLDAP")
     }
 

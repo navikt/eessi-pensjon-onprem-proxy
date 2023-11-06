@@ -4,15 +4,9 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
-import no.nav.eessi.pensjon.klienter.BehandleHendelseKlient
-import no.nav.eessi.pensjon.klienter.BestemSakKlient
-import no.nav.eessi.pensjon.klienter.BestemSakRequest
-import no.nav.eessi.pensjon.klienter.BestemSakResponse
-import no.nav.eessi.pensjon.klienter.FagmodulKlient
-import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
+import no.nav.eessi.pensjon.klienter.*
 import no.nav.eessi.pensjon.oppgaverouting.SakInformasjon
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -30,11 +24,6 @@ class PensjonApiTest {
     private val fagmodulKlient = FagmodulKlient(fagmodulRestMock)
 
     private val api = PensjonApi(pensjonsinformasjonClient, behandleHendelseKlient, bestemSakKlient, fagmodulKlient)
-
-    @BeforeEach
-    fun before() {
-        api.initMetrics()
-    }
 
     @Test
     fun hentAltPaaAktoer() {

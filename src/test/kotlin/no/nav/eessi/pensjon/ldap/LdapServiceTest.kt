@@ -22,9 +22,8 @@ class LdapServiceTest {
     lateinit var ldapService: LdapService
 
     @BeforeEach
-    fun setUp(){
-       ldapService = LdapService(ldapKlient)
-        ldapService.initMetrics()
+    fun setUp() {
+        ldapService = LdapService(ldapKlient)
     }
 
     @Test

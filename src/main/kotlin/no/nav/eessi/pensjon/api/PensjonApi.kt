@@ -1,13 +1,7 @@
 package no.nav.eessi.pensjon.api
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import jakarta.annotation.PostConstruct
-import no.nav.eessi.pensjon.klienter.BehandleHendelseKlient
-import no.nav.eessi.pensjon.klienter.BestemSakKlient
-import no.nav.eessi.pensjon.klienter.BestemSakRequest
-import no.nav.eessi.pensjon.klienter.BestemSakResponse
-import no.nav.eessi.pensjon.klienter.FagmodulKlient
-import no.nav.eessi.pensjon.klienter.PensjonsinformasjonClient
+import no.nav.eessi.pensjon.klienter.*
 import no.nav.eessi.pensjon.metrics.MetricsHelper
 import no.nav.security.token.support.core.api.Protected
 import no.nav.security.token.support.core.api.Unprotected
@@ -15,12 +9,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 //@Protected
@@ -39,8 +28,7 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
     private lateinit var proxyPensjonBehandleHendelse: MetricsHelper.Metric
     private lateinit var proxyPensjonUtland: MetricsHelper.Metric
 
-    @PostConstruct
-    fun initMetrics() {
+    init {
         proxyPensjonBehandleHendelse = metricsHelper.init("proxyHendelse")
         proxyBestemsak = metricsHelper.init("proxyBestemsak")
         proxyPensjonSak = metricsHelper.init("proxyPensjonSak")
@@ -48,7 +36,6 @@ class PensjonApi(private val pensjonsinformasjonClient: PensjonsinformasjonClien
         proxyPensjonVedtak = metricsHelper.init("proxyPensjonVedtak")
         proxyPensjonUtland = metricsHelper.init("proxyPensjonUtland")
     }
-
     @Protected
     @PostMapping("/pen/api/pensjonsinformasjon/v1/aktor/{aktorid}")
     fun hentSaker(@RequestBody req : String, @PathVariable("aktorid", required = true) aktorid: String): String {
