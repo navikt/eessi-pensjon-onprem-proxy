@@ -14,7 +14,7 @@ plugins {
 
 apply from: "buildSrc/ep-module.gradle"
 
-group = 'no.nav.eessi'
+group = 'no.nav.eessi.pensjon'
 
 dependencies {
 
