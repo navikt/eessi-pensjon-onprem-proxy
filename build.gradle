@@ -60,7 +60,7 @@ dependencies {
     implementation("no.nav.security:token-client-spring:${tokenSupportVersion}")
     // Only used for starting up locally
     implementation("no.nav.security:token-validation-test-support:2.0.5")
-    testImplementation("org.pac4j:spring-webmvc-pac4j:7.0.0")
+    testImplementation("org.pac4j:spring-webmvc-pac4j:8.0.0")
 
     implementation("no.nav.eessi.pensjon:ep-metrics:2.0.47")
     implementation("no.nav.eessi.pensjon:ep-logging:2.1.42")
