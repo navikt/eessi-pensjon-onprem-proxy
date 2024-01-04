@@ -78,7 +78,7 @@ class RestTemplateConfig(
                 RequestResponseLoggerInterceptor(),
                 UsernameToOidcInterceptor(securityTokenExchangeService))
             .build().apply {
-                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory().apply { setOutputStreaming(false)})
+                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
             }
 
     }
@@ -97,9 +97,7 @@ class RestTemplateConfig(
                 tokenIntercetor
             )
             .build().apply {
-                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()
-                    .apply { setOutputStreaming(false) }
-                )
+                requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
             }
     }
 
