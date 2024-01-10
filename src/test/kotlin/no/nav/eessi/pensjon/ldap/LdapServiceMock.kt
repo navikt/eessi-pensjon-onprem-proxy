@@ -8,7 +8,7 @@ import javax.naming.NamingException
 
 @Profile("integrationtest", "test")
 @Service
-class LdapServiceMock(): BrukerInformasjonService {
+class LdapServiceMock : BrukerInformasjonService {
 
     // Pattern for NAV brukerident, f.eks Z123456
     private val IDENT_PATTERN = Pattern.compile("^[a-zA-Z][0-9]{6}") // sjekke om det kan væe 6 sifre her i stedet
