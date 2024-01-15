@@ -65,7 +65,11 @@ class RestTemplateConfig(
     fun behandleHendelseRestTemplate() = restTemplate(penBeandleHendelseurl, CustomUsernameToOidcInterceptor(srvFagmodulUsername, srvFagmodulPassword, securityTokenExchangeService))
 
     @Bean
-    fun fagmodulOAuth2RestTemplate() = restTemplate(fagmodulURL,  oAuth2BearerTokenInterceptor(clientProperties("fagmodul-credentials"), oAuth2AccessTokenService))
+    fun fagmodulOAuth2RestTemplate() = restTemplate(fagmodulURL, oAuth2BearerTokenInterceptor(
+        clientConfigurationProperties.registration["fagmodul-credentials"]
+            ?: throw RuntimeException("could not find oauth2 client config for ${"fagmodul-credentials"}"),
+        oAuth2AccessTokenService
+    ))
 
     private fun buildRestTemplate(url: String): RestTemplate {
         return RestTemplateBuilder()
@@ -100,9 +104,6 @@ class RestTemplateConfig(
                 requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
             }
     }
-
-    private fun clientProperties(oAuthKey: String): ClientProperties = clientConfigurationProperties.registration[oAuthKey]
-        ?: throw RuntimeException("could not find oauth2 client config for $oAuthKey")
 
     private fun oAuth2BearerTokenInterceptor(
         clientProperties: ClientProperties,
