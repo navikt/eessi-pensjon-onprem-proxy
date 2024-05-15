@@ -66,7 +66,7 @@ dependencies {
     implementation("no.nav.security:token-validation-test-support:2.0.5")
     testImplementation("org.pac4j:spring-webmvc-pac4j:8.0.0")
 
-    implementation("no.nav.eessi.pensjon:ep-metrics:2.0.62")
+    implementation("no.nav.eessi.pensjon:ep-metrics:2.0.64")
     implementation("no.nav.eessi.pensjon:ep-logging:2.1.63")
     implementation("no.nav.eessi.pensjon:ep-routing:2.0.89"){
         exclude module: 'ep-eux'
