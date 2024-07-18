@@ -34,7 +34,7 @@ spec:
           namespace: eessipensjon
           cluster: prod-gcp
         - application: pensjon-pen
-          namespace: teampensjon
+          namespace: pensjondeployer
           cluster: prod-fss
         - application: pensjon-pselv
           namespace: pensjondeployer
