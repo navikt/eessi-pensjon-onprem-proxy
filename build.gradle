@@ -74,7 +74,7 @@ dependencies {
         exclude module: 'ep-logging'
         exclude module: 'ep-personoppslag'
     }
-    implementation("no.nav.eessi.pensjon:ep-security-sts:1.0.154") {
+    implementation("no.nav.eessi.pensjon:ep-security-sts:1.0.156") {
         exclude module: 'ep-metrics'
     }
     implementation("no.nav.eessi.pensjon:ep-eux:2.3.4"){
