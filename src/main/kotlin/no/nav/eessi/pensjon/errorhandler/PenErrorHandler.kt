@@ -32,6 +32,7 @@ class PenErrorHandler: ResponseErrorHandler {
     }
 
     @Throws(IOException::class)
+    @Deprecated("Use handleError(ClientHttpResponse) instead")
     override fun handleError(httpResponse: ClientHttpResponse) {
         logResponse(httpResponse)
 
