@@ -21,6 +21,7 @@ FAGMODUL_URL: 'http://example.com:8090'
 PENSJONSINFORMASJON_URL: 'http://example.com'
 PENSJON_BEHANDLEHENDELSE_URL: "http://example.com"
 BESTEMSAK_URL: "http://example.com"
+AZURE_APP_PEN_CLIENT_ID: "dev-fss.pensjon-q2.pensjon-pen-q2"
 
 securityTokenService:
   discoveryUrl: 'http://example.com'
