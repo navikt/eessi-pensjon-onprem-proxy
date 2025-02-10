@@ -10,6 +10,9 @@ on:
 jobs:
   bygg_og_publiser:
     name: 'Bygg branch og publiser image'
+    permissions:
+      contents: "read"
+      id-token: "write"
     runs-on: ubuntu-latest
     env:
       package: eessi-pensjon-onprem-proxy
@@ -29,7 +32,7 @@ jobs:
       - name: 'Java'
         uses: actions/setup-java@v3
         with:
-          java-version: 21
+          java-version: 21.0.4
           distribution: temurin
 
       - name: 'Bygg og publiser docker image'
