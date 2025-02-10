@@ -13,12 +13,19 @@ jobs:
     permissions:
       contents: "read"
       id-token: "write"
+      packages: "write"
     runs-on: ubuntu-latest
     env:
       package: eessi-pensjon-onprem-proxy
     steps:
       - name: 'Pull repo'
         uses: actions/checkout@v3
+
+      - name: 'Java'
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: temurin
 
       - name: 'Setter dato og commit variabel'
         run: |
@@ -28,12 +35,6 @@ jobs:
 
       - name: 'Setter Image'
         run: echo "IMAGE=ghcr.io/${{ github.repository }}/${{ env.package }}:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
-
-      - name: 'Java'
-        uses: actions/setup-java@v3
-        with:
-          java-version: 21
-          distribution: temurin
 
       - name: 'Bygg og publiser docker image'
         env:
