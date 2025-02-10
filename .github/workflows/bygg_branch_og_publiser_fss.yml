@@ -10,6 +10,9 @@ on:
 jobs:
   bygg_og_publiser:
     name: 'Bygg branch og publiser image'
+    permissions:
+      contents: "read"
+      id-token: "write"
     runs-on: ubuntu-latest
     env:
       package: eessi-pensjon-onprem-proxy
