@@ -87,7 +87,6 @@ class PensjonApiTest {
 
     @Test
     fun hendelse() {
-
         justRun {  behandleHendelseKlient.opprettBehandleHendelse(any()) }
 
         api.behandleHendelse("bla bla bla bla")
