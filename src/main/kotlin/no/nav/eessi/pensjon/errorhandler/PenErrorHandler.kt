@@ -2,6 +2,7 @@ package no.nav.eessi.pensjon.errorhandler
 
 import no.nav.eessi.pensjon.eux.klient.*
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatus.*
 import org.springframework.http.client.ClientHttpResponse
@@ -9,6 +10,7 @@ import org.springframework.util.StreamUtils
 import org.springframework.web.client.ResponseErrorHandler
 import org.springframework.web.server.ResponseStatusException
 import java.io.IOException
+import java.net.URI
 import java.nio.charset.Charset
 
 class PenErrorHandler: ResponseErrorHandler {
@@ -32,20 +34,20 @@ class PenErrorHandler: ResponseErrorHandler {
     }
 
     @Throws(IOException::class)
-    @Deprecated("Use handleError(ClientHttpResponse) instead")
-    override fun handleError(httpResponse: ClientHttpResponse) {
-        logResponse(httpResponse)
+    override fun handleError(url: URI, method: HttpMethod, response: ClientHttpResponse) {
+        logResponse(response)
 
-        when (httpResponse.statusCode) {
-            BAD_REQUEST -> handleBadRequest(httpResponse)
+        when (response.statusCode) {
+            BAD_REQUEST -> handleBadRequest(response)
             NOT_FOUND -> throw IkkeFunnetException("Ikke funnet")
             FORBIDDEN -> throw ForbiddenException("Forbidden, Ikke tilgang")
             CONFLICT -> throw EuxConflictException("En konflikt oppstod under kall til Pensjon-pen")
             UNAUTHORIZED -> throw RinaIkkeAutorisertBrukerException("Authorization token required.")
             GATEWAY_TIMEOUT -> throw GatewayTimeoutException("Venting på respons fra pensjon-pen resulterte i en timeout")
             INTERNAL_SERVER_ERROR -> throw EuxRinaServerException("pensjon-pen serverfeil, kan også skyldes ugyldig input")
-            else -> handleBadRequest(httpResponse)
+            else -> handleBadRequest(response)
         }
+        super.handleError(url, method, response)
     }
 
     @Throws(IOException::class)
