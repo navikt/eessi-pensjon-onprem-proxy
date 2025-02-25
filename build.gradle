@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '2.1.10'
-        springBootVersion = '3.4.2'
+        springBootVersion = '3.4.3'
         tokenSupportVersion = '5.0.16'
     }
 }
@@ -24,7 +24,7 @@ dependencies {
     // Spring-boot BOM-fil spesifiserer versjoner for Spring Boot-avhengigheter
     implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.yaml:snakeyaml:2.3") // Pga https://security.snyk.io/package/maven/org.yaml:snakeyaml
+    implementation("org.yaml:snakeyaml:2.4") // Pga https://security.snyk.io/package/maven/org.yaml:snakeyaml
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -36,7 +36,7 @@ dependencies {
     }
 
     // Spring Framework BOM-fil overstyrer så vi får siste patch-versjon av Spring Framework
-    implementation(platform("org.springframework:spring-framework-bom:6.2.2"))
+    implementation(platform("org.springframework:spring-framework-bom:6.2.3"))
 
     // Kotlin
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.1")
@@ -61,7 +61,6 @@ dependencies {
     implementation("no.nav.security:token-validation-jaxrs:${tokenSupportVersion}")
     implementation("no.nav.security:token-client-spring:${tokenSupportVersion}")
     // Only used for starting up locally
-    implementation("no.nav.security:token-validation-test-support:2.0.5")
     testImplementation("org.pac4j:spring-webmvc-pac4j:8.0.0")
 
     implementation ("no.nav.common:token-client:3.2024.11.26_16.35-432a29107830")
