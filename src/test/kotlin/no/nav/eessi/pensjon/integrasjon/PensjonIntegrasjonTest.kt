@@ -11,11 +11,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -31,7 +27,7 @@ class PensjonIntegrasjonTest {
     private lateinit var mockMvc: MockMvc
 
     @MockkBean(name =  "pensjonInformasjonRestTemplate")
-    private lateinit var mockTemplate: RestTemplate
+    private lateinit var pensjonInformasjonRestTemplate: RestTemplate
 
     @MockkBean(name = "personMottakRestTemplate")
     private lateinit var personMottakRestTemplate: RestTemplate
@@ -51,6 +47,9 @@ class PensjonIntegrasjonTest {
     @MockkBean
     private lateinit var oAuth2AccessTokenService: OAuth2AccessTokenService
 
+//    @MockkBean
+//    private lateinit var tokenValidationContextHolder: TokenValidationContextHolder
+
     @MockkBean
     private lateinit var stsService: STSService
 
@@ -65,7 +64,7 @@ class PensjonIntegrasjonTest {
 
         val responseEntity = ResponseEntity(mockXMLResult, headers, HttpStatus.OK)
 
-        every { mockTemplate.exchange(eq("/vedtak/$vedtakid"), any(), any<HttpEntity<Unit>>(), eq(String::class.java)) } returns responseEntity
+        every { pensjonInformasjonRestTemplate.exchange(eq("/vedtak/$vedtakid"), any(), any<HttpEntity<Unit>>(), eq(String::class.java)) } returns responseEntity
 
         val result = mockMvc.perform(
         MockMvcRequestBuilders.post("/pen/api/pensjonsinformasjon/v1/vedtak/$vedtakid")
