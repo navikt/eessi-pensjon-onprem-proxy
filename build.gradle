@@ -60,8 +60,10 @@ dependencies {
     implementation("no.nav.security:token-validation-spring:${tokenSupportVersion}")
     implementation("no.nav.security:token-validation-jaxrs:${tokenSupportVersion}")
     implementation("no.nav.security:token-client-spring:${tokenSupportVersion}")
-    // Only used for starting up locally
-    implementation("no.nav.security:token-validation-test-support:2.0.5")
+
+    //nødvendig for validering av jwt og EnableJwtTokenValidationConfiguration
+    implementation("org.hibernate.validator:hibernate-validator")
+
     testImplementation("org.pac4j:spring-webmvc-pac4j:8.0.0")
 
     implementation("no.nav.eessi.pensjon:ep-metrics:2.0.102")
