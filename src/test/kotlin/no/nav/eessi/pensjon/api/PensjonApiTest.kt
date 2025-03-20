@@ -1,17 +1,17 @@
 package no.nav.eessi.pensjon.api
 
-//import io.mockk.every
-//import io.mockk.justRun
-//import io.mockk.mockk
-//import io.mockk.verify
-//import no.nav.eessi.pensjon.klienter.*
-//import no.nav.eessi.pensjon.oppgaverouting.SakInformasjon
-//import org.junit.jupiter.api.Assertions.assertEquals
-//import org.junit.jupiter.api.Test
-//import org.springframework.http.HttpMethod
-//import org.springframework.http.HttpStatus
-//import org.springframework.http.ResponseEntity
-//import org.springframework.web.client.RestTemplate
+import io.mockk.every
+import io.mockk.justRun
+import io.mockk.mockk
+import io.mockk.verify
+import no.nav.eessi.pensjon.klienter.*
+import no.nav.eessi.pensjon.oppgaverouting.SakInformasjon
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.client.RestTemplate
 
 //class PensjonApiTest {
 //
