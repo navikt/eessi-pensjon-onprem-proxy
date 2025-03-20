@@ -25,10 +25,6 @@ spec:
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: test
-    - name: SECURITY_TOKEN_SERVICE_OPENID_CONFIGURATION_URL
-      value: https://security-token-service.nais.preprod.local/rest/v1/sts/.well-known/openid-configuration
-    - name: SECURITYTOKENSERVICE_URL
-      value: https://sts-q2.preprod.local/SecurityTokenServiceProvider/
     - name: LDAP_USER_BASEDN
       value: ou=NAV,ou=BusinessUnits,dc=preprod,dc=local
     - name: LDAP_SERVICEUSER_BASEDN
