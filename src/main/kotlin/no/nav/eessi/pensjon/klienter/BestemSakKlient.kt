@@ -1,23 +1,23 @@
 package no.nav.eessi.pensjon.klienter
 
-//import com.fasterxml.jackson.databind.DeserializationFeature
-//import com.fasterxml.jackson.databind.ObjectMapper
-//import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-//import no.nav.eessi.pensjon.eux.model.buc.SakType
-//import no.nav.eessi.pensjon.metrics.MetricsHelper
-//import no.nav.eessi.pensjon.oppgaverouting.SakInformasjon
-//import no.nav.eessi.pensjon.utils.toJson
-//import org.slf4j.Logger
-//import org.slf4j.LoggerFactory
-//import org.springframework.beans.factory.annotation.Autowired
-//import org.springframework.http.HttpEntity
-//import org.springframework.http.HttpHeaders
-//import org.springframework.http.HttpMethod
-//import org.springframework.http.MediaType
-//import org.springframework.stereotype.Component
-//import org.springframework.web.client.HttpStatusCodeException
-//import org.springframework.web.client.RestTemplate
-//import java.util.*
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import no.nav.eessi.pensjon.eux.model.buc.SakType
+import no.nav.eessi.pensjon.metrics.MetricsHelper
+import no.nav.eessi.pensjon.oppgaverouting.SakInformasjon
+import no.nav.eessi.pensjon.utils.toJson
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
+import org.springframework.stereotype.Component
+import org.springframework.web.client.HttpStatusCodeException
+import org.springframework.web.client.RestTemplate
+import java.util.*
 
 //@Component
 //class BestemSakKlient(private val bestemSakOidcRestTemplate: RestTemplate,

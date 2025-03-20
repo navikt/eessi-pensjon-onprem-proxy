@@ -1,9 +1,9 @@
 package no.nav.eessi.pensjon.klienter
 
-//import org.slf4j.LoggerFactory
-//import org.springframework.http.HttpMethod
-//import org.springframework.stereotype.Component
-//import org.springframework.web.client.RestTemplate
+import org.slf4j.LoggerFactory
+import org.springframework.http.HttpMethod
+import org.springframework.stereotype.Component
+import org.springframework.web.client.RestTemplate
 
 //@Component
 //class FagmodulKlient(private val fagmodulOAuth2RestTemplate: RestTemplate) {

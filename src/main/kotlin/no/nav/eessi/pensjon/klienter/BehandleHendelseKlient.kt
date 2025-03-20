@@ -1,14 +1,14 @@
 package no.nav.eessi.pensjon.klienter
 
-//import org.slf4j.LoggerFactory
-//import org.springframework.http.HttpEntity
-//import org.springframework.http.HttpHeaders
-//import org.springframework.http.HttpStatus
-//import org.springframework.http.MediaType
-//import org.springframework.stereotype.Component
-//import org.springframework.web.client.HttpStatusCodeException
-//import org.springframework.web.client.RestTemplate
-//import org.springframework.web.server.ResponseStatusException
+import org.slf4j.LoggerFactory
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.stereotype.Component
+import org.springframework.web.client.HttpStatusCodeException
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.server.ResponseStatusException
 
 //@Component
 //class BehandleHendelseKlient(
