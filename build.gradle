@@ -36,7 +36,7 @@ dependencies {
     }
 
     // Spring Framework BOM-fil overstyrer så vi får siste patch-versjon av Spring Framework
-    implementation(platform("org.springframework:spring-framework-bom:6.2.3"))
+    implementation(platform("org.springframework:spring-framework-bom:6.2.4"))
 
     // Kotlin
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
@@ -66,8 +66,8 @@ dependencies {
 
     testImplementation("org.pac4j:spring-webmvc-pac4j:8.0.0")
 
-    implementation("no.nav.eessi.pensjon:ep-metrics:2.0.104")
-    implementation("no.nav.eessi.pensjon:ep-logging:2.2.11")
+    implementation("no.nav.eessi.pensjon:ep-metrics:2.0.111")
+    implementation("no.nav.eessi.pensjon:ep-logging:2.2.16")
     implementation("no.nav.eessi.pensjon:ep-routing:2.0.211"){
         exclude module: 'ep-eux'
         exclude module: 'ep-metrics'
