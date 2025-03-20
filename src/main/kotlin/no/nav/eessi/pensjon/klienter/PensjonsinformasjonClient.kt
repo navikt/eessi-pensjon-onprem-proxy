@@ -1,18 +1,18 @@
 package no.nav.eessi.pensjon.klienter
 
 
-import org.slf4j.LoggerFactory
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.stereotype.Service
-import org.springframework.web.client.HttpClientErrorException
-import org.springframework.web.client.HttpServerErrorException
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.server.ResponseStatusException
-import org.springframework.web.util.UriComponentsBuilder
+//import org.slf4j.LoggerFactory
+//import org.springframework.http.HttpEntity
+//import org.springframework.http.HttpHeaders
+//import org.springframework.http.HttpMethod
+//import org.springframework.http.HttpStatus
+//import org.springframework.http.MediaType
+//import org.springframework.stereotype.Service
+//import org.springframework.web.client.HttpClientErrorException
+//import org.springframework.web.client.HttpServerErrorException
+//import org.springframework.web.client.RestTemplate
+//import org.springframework.web.server.ResponseStatusException
+//import org.springframework.web.util.UriComponentsBuilder
 
 //@Service
 //class PensjonsinformasjonClient(private val pensjonInformasjonRestTemplate: RestTemplate) {
