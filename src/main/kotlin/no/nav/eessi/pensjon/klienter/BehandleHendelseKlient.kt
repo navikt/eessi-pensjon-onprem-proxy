@@ -38,6 +38,4 @@ class BehandleHendelseKlient(
 
         logger.debug("*** Ferdig med melding ***")
     }
-
-
 }
