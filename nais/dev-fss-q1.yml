@@ -21,10 +21,64 @@ spec:
         - application: eessi-pensjon-saksbehandling-api-q1
           namespace: eessipensjon
           cluster: dev-gcp
+        - application: eessi-pensjon-journalforing-q1
+          namespace: eessipensjon
+          cluster: dev-gcp
+        - application: eessi-pensjon-krav-initialisering-q1
+          namespace: eessipensjon
+          cluster: dev-gcp
+        - application: eessi-pensjon-prefill-q1
+          namespace: eessipensjon
+          cluster: dev-gcp
+        - application: eessi-pensjon-fagmodul-q1
+          namespace: eessipensjon
+          cluster: dev-gcp
+        - application: pensjon-pen-q2
+          namespace: pensjon-q2
+          cluster: dev-fss
+        - application: pensjon-pen-q2
+          namespace: pensjon-q2
+          cluster: dev-fss
+        - application: pensjon-pselv-q0
+          namespace: pensjon-q2
+          cluster: dev-fss
+        - application: pensjon-pselv-veileder-q0
+          namespace: pensjon-q0
+          cluster: dev-gcp
+        - application: pensjon-pselv-q1
+          namespace: pensjon-q2
+          cluster: dev-fss
+        - application: pensjon-pselv-veileder-q1
+          namespace: pensjon-q1
+          cluster: dev-gcp
+        - application: pensjon-pselv-q2
+          namespace: pensjon-q2
+          cluster: dev-fss
+        - application: pensjon-pselv-veileder-q2
+          namespace: pensjon-q2
+          cluster: dev-gcp
+    outbound:
+      external:
+        - host: pensjon-pen-q2.nais.preprod.local
+
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: test
+    - name: SECURITY_TOKEN_SERVICE_OPENID_CONFIGURATION_URL
+      value: https://security-token-service.nais.preprod.local/rest/v1/sts/.well-known/openid-configuration
+    - name: SECURITYTOKENSERVICE_URL
+      value: https://sts-q1.preprod.local/SecurityTokenServiceProvider/
+    - name: AZURE_APP_FAGMODUL_CLIENT_ID
+      value: dev-gcp.eessipensjon.eessi-pensjon-fagmodul-q1
+    - name: FAGMODUL_URL
+      value: https://eessi-pensjon-fagmodul-q1.intern.dev.nav.no
+    - name: PENSJONSINFORMASJON_URL
+      value: https://pensjon-pen-q2.nais.preprod.local/pen/api/pensjonsinformasjon/v1
+    - name: PENSJON_BEHANDLEHENDELSE_URL
+      value: https://pensjon-pen-q2.nais.preprod.local/pen/api/behandlehendelse/utland/v1/
+    - name: BESTEMSAK_URL
+      value: https://pensjon-pen-q2.nais.preprod.local/pen/api/bestemsak/v1
     - name: LDAP_USER_BASEDN
       value: ou=NAV,ou=BusinessUnits,dc=preprod,dc=local
     - name: LDAP_SERVICEUSER_BASEDN

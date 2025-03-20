@@ -18,13 +18,52 @@ spec:
   accessPolicy:
     inbound:
       rules:
+        - application: eessi-pensjon-journalforing
+          namespace: eessipensjon
+          cluster: prod-gcp
+        - application: eessi-pensjon-krav-initialisering
+          namespace: eessipensjon
+          cluster: prod-gcp
+        - application: eessi-pensjon-prefill
+          namespace: eessipensjon
+          cluster: prod-gcp
         - application: eessi-pensjon-saksbehandling-api
           namespace: eessipensjon
           cluster: prod-gcp
+        - application: eessi-pensjon-fagmodul
+          namespace: eessipensjon
+          cluster: prod-gcp
+        - application: pensjon-pen
+          namespace: pensjondeployer
+          cluster: prod-fss
+        - application: pensjon-pselv
+          namespace: pensjondeployer
+          cluster: prod-fss
+        - application: pensjon-pselv-veileder
+          namespace: pensjondeployer
+          cluster: prod-gcp
+    outbound:
+      external:
+        - host: pensjon-pen.nais.adeo.no
+
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: prod
+    - name: SECURITY_TOKEN_SERVICE_OPENID_CONFIGURATION_URL
+      value: https://security-token-service.nais.adeo.no/rest/v1/sts/.well-known/openid-configuration
+    - name: SECURITYTOKENSERVICE_URL
+      value: https://sts.adeo.no/SecurityTokenServiceProvider/
+    - name: AZURE_APP_FAGMODUL_CLIENT_ID
+      value: prod-gcp.eessipensjon.eessi-pensjon-fagmodul
+    - name: FAGMODUL_URL
+      value: https://eessi-pensjon-fagmodul.intern.nav.no
+    - name: PENSJONSINFORMASJON_URL
+      value: https://pensjon-pen.nais.adeo.no/pen/api/pensjonsinformasjon/v1
+    - name: PENSJON_BEHANDLEHENDELSE_URL
+      value: https://pensjon-pen.nais.adeo.no/pen/api/behandlehendelse/utland/v1/
+    - name: BESTEMSAK_URL
+      value: https://pensjon-pen.nais.adeo.no/pen/api/bestemsak/v1
     - name: LDAP_DOMAIN
       value: ADEO.NO
     - name: LDAP_BASEDN
