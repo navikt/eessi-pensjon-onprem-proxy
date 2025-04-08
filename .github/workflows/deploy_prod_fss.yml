@@ -21,7 +21,6 @@ jobs:
       - name: 'NAIS-deploy to PROD (FSS)'
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-fss
           RESOURCE: nais/prod-fss.yml
           IMAGE: ${{ github.event.client_payload.image }}
