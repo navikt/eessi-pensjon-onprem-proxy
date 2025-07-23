@@ -39,7 +39,7 @@ dependencies {
     implementation(platform("org.springframework:spring-framework-bom:6.2.8"))
 
     // Kotlin
-    implementation("com.fasterxml.jackson.core:jackson-core:2.19.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.19.2")
 
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
 
