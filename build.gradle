@@ -62,7 +62,7 @@ dependencies {
     implementation("no.nav.security:token-client-spring:${tokenSupportVersion}")
 
     //nødvendig for validering av jwt og EnableJwtTokenValidationConfiguration
-    implementation("org.hibernate.validator:hibernate-validator")
+    implementation("org.hibernate.validator:hibernate-validator:9.0.1.Final")
 
     testImplementation("org.pac4j:spring-webmvc-pac4j:8.0.1")
 
