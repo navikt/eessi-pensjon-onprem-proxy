@@ -53,7 +53,6 @@ jobs:
       - name: 'Deploy to FSS Q1'
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-fss
           RESOURCE: nais/dev-fss-q1.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
