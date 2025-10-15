@@ -16,12 +16,12 @@ jobs:
       package: eessi-pensjon-onprem-proxy
     steps:
       - name: 'Pull repo'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 'Java'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          java-version: 21
+          java-version: 21.0.4
           distribution: temurin
 
       - name: 'Sjekker at bygget kjører'
@@ -51,7 +51,7 @@ jobs:
       - name: 'Deploy image'
         run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
       - name: 'Deploy to FSS Q1'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-fss
