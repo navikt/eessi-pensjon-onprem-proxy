@@ -60,7 +60,6 @@ spec:
     outbound:
       external:
         - host: pensjon-pen-q2.nais.preprod.local
-
   webproxy: true
   env:
     - name: SPRING_PROFILES_ACTIVE
