@@ -16,7 +16,7 @@ jobs:
       package: eessi-pensjon-onprem-proxy
     steps:
       - name: 'Pull repo'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 'Java'
         uses: actions/setup-java@v3
@@ -38,22 +38,18 @@ jobs:
           tag: onprem-proxy
           pull: true
           dockerfile: Dockerfile
-          docker_context: . # optional, default .a
           image_suffix: ${{ env.DATE }}${{ env.COMMIT_HASH }} # optional, default empty
           cache_from: type=gha # optional, default type=gha
           cache_to: type=gha,mode=max # optional, default type=gha,mode=max
-          build_secrets:
-            | # optional, default empty. See https://docs.docker.com/build/ci/github-actions/secrets/
-            key=string
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
 
       - name: 'Deploy image'
         run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
+
       - name: 'Deploy to FSS'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-fss
           RESOURCE: nais/dev-fss.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
@@ -65,7 +61,6 @@ jobs:
       - name: 'Dispatch PROD'
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.DISPATCH_TOKEN }}
           repository: ${{ github.repository }}
           event-type: deploy-prod
           client-payload: '{"image": "${{ steps.docker-push.outputs.image }}"}'

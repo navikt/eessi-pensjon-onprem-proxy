@@ -11,12 +11,22 @@ on:
 jobs:
   bygg_og_publiser:
     name: 'Bygg branch og publiser image'
+    permissions:
+      contents: "write"
+      id-token: "write"
+      packages: "write"
     runs-on: ubuntu-latest
     env:
       package: eessi-pensjon-onprem-proxy
     steps:
       - name: 'Pull repo'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: 'Java'
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
 
       - name: 'Setter dato og commit variabel'
         run: |
@@ -26,12 +36,6 @@ jobs:
 
       - name: 'Setter Image'
         run: echo "IMAGE=ghcr.io/${{ github.repository }}/${{ env.package }}:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
-
-      - name: 'Java'
-        uses: actions/setup-java@v3
-        with:
-          java-version: 21
-          distribution: temurin
 
       - name: 'Bygg og publiser docker image'
         env:
