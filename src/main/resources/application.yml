@@ -46,3 +46,8 @@ management:
           autotime:
             enabled: true
 
+ldap.provider:
+  serviceuser-dn-pattern: "CN={0},OU=ApplAccounts,OU=ServiceAccounts"
+  user-search-filter: "(&(objectClass=user)(|(sAMAccountName={0})(userPrincipalName={0})))"
+  user-search-base=: "OU=NAV,OU=BusinessUnits"
+  group-search-base=OU: "NAV,OU=BusinessUnits"
