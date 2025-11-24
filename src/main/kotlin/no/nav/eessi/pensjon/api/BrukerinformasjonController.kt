@@ -26,7 +26,7 @@ class BrukerinformasjonController(
 
     @GetMapping("/brukerinfo/{navident}")
     fun hentBrukerInformasjon(@PathVariable("navident", required = true) navident: String): BrukerInformasjon {
-        logger.info("Henter brukerinformasjon for Ident: $navident")
+        logger.info("Henter brukerinformasjon for Ident fra proxy: $navident")
         return proxyLDAP.measure {
             ldapService.hentBrukerInformasjon(navident)
         }
